@@ -14,7 +14,7 @@ export default function RootLayout({
         <div className="max-w-[1200px] mx-auto my-0">
         <Header />
         <div className="relative">{children}</div>
-        {/* <Footer /> */}
+        <Footer />
         </div>
       </body>
     </html>
