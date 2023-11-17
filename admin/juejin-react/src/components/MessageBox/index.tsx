@@ -141,7 +141,7 @@ function MessageBox({ children }) {
       unmountOnExit={false}
       popupAlign={{ bottom: 4 }}
     >
-      <Badge count={9} dot>
+      <Badge count={1} dot>
         {children}
       </Badge>
     </Trigger>

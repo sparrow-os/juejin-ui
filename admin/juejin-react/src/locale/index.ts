@@ -1,5 +1,6 @@
 const i18n = {
   'en-US': {
+    'website.name':'juejin@sparrow',
     'menu.welcome': 'Welcome',
     'menu.dashboard': 'Dashboard',
     'menu.list': 'List',
@@ -59,6 +60,7 @@ const i18n = {
     'navbar.search.placeholder': 'Please search',
   },
   'zh-CN': {
+    'website.name':'juejin@sparrow',
     'menu.dashboard': '仪表盘',
     'menu.list': '列表页',
     'menu.result': '结果页',
