@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ContentList() {
   return (
-    <div className="w-[720px] mr-[20rem] flex bg-[#fff]">
+    <div className="w-[720px] mr-[20rem] flex bg-[#fff] p-[10px] rounded-[4px] overflow-hidden">
       <h3>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed tempore
         nobis, reiciendis dolorum aliquam aliquid quam distinctio eaque

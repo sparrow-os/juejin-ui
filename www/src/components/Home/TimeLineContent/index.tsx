@@ -1,6 +1,6 @@
 import React from "react";
-import ContentList from "./ContentList/index";
-import ContentAside from "./ContentAside/index";
+import ContentList from "../ContentList/index";
+import ContentAside from "../ContentAside/index";
 
 export default function TimeLineContent() {
   return (

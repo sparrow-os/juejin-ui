@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import TechnicalClassify from "../components/TechnicalClassify";
-import TimeLineContent from "../components/TimeLineContent";
+import TechnicalClassify from "../components/Home/TechnicalClassify";
+import TimeLineContent from "../components/Home/TimeLineContent";
 
 export default function Page() {
   return (

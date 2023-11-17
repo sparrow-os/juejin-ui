@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 function Header() {
   return (
@@ -10,7 +11,25 @@ function Header() {
           </div>
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Index</a>
+              <Link href="/">首页</Link>
+            </li>
+            <li>
+              <Link href="/post/1111">沸点</Link>
+            </li>
+            <li>
+              <Link href="/list">课程</Link>
+            </li>
+            <li>
+              <Link href="/list">直播</Link>
+            </li>
+            <li>
+              <Link href="/list">活动</Link>
+            </li>
+            <li>
+              <Link href="/list">竞赛</Link>
+            </li>
+            <li>
+              <Link href="/list">商城</Link>
             </li>
             {/*<li tabIndex={0}>*/}
             {/*    <details>*/}
