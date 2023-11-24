@@ -9,5 +9,5 @@ module.exports = {
   experimental: {
     appDir: true,
   },
-  output: "dist",
+  output: "export",
 };
