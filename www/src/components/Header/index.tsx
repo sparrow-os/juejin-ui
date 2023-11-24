@@ -17,9 +17,9 @@ function Header() {
               <Link href="/post/1111">沸点</Link>
             </li>
             <li>
-              <Link href="/list">课程</Link>
+              <Link href="/editor" target="__blank">写文章</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/list">直播</Link>
             </li>
             <li>
@@ -30,7 +30,7 @@ function Header() {
             </li>
             <li>
               <Link href="/list">商城</Link>
-            </li>
+            </li> */}
             {/*<li tabIndex={0}>*/}
             {/*    <details>*/}
             {/*        <summary>Parent</summary>*/}
@@ -40,7 +40,7 @@ function Header() {
             {/*        </ul>*/}
             {/*    </details>*/}
             {/*</li>*/}
-            <li>
+            {/* <li>
               <a>圈子</a>
             </li>
             <li>
@@ -48,7 +48,7 @@ function Header() {
             </li>
             <li>
               <a>商城</a>
-            </li>
+            </li> */}
           </ul>
           <div className="flex-none gap-2">
             <input
@@ -91,5 +91,4 @@ function Header() {
     </div>
   );
 }
-
-export { Header };
+export default React.memo(Header)
