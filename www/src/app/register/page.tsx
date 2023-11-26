@@ -20,7 +20,7 @@ export default function Page() {
                        className="input flex-1 input-bordered input-info"/>
 
                 <div className="flex flex-row text-center h-auto justify-center items-center">
-                    <img className="w-16 inline-block" src="javascript:void();"/><a
+                    <img className="w-16 inline-block" src="http://www.sparrowzoo.com/validate-code"/><a
                     className=" label-text inline-block w-32 content-center">看不清，换一张</a>
                 </div>
             </div>
