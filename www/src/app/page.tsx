@@ -8,24 +8,7 @@ import {Footer} from "../components/Footer";
 import axios from 'axios'
 
 export default class Page extends React.Component {
-    state = {
-        studentsList: [],
-        carsList: []
-    }
-    componentDidMount = async () => {
-        try {
-            const {data: studentsList} = await axios.get('http://localhost:3000/api1/students');  //请求地址加上api1
-            const {data: carsList} = await axios.get('/api2/cars');
-            // 当我们请求的地址的域名和端口和和自身的端口、域名相同时，可以省域名和端口，请求地址加上api2
-            console.log(studentsList, carsList)
-            this.setState({studentsList, carsList})
-        } catch (error) {
-
-        }
-    }
-
-    render() {
-        const {studentsList, carsList} = this.state;
+        render() {
         return (
             <body>
             <Header/>

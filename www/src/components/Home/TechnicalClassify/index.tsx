@@ -1,6 +1,5 @@
 'use client'
 import React from "react";
-import {it} from "node:test";
 
 interface IClassification {
     value: string;
@@ -74,8 +73,7 @@ const initClassification: IClassification[] = [
 
 function ClassifyItem({item, onClick}: IClassifyItemProps) {
     return (
-        <div
-            key={item.value}>
+        <div>
             <button  onClick={() => onClick(item)}>Delete</button>;
             <span>{item.label}</span>
         </div>
@@ -93,8 +91,8 @@ export default function TechnicalClassify() {
 
     return (
         <div className="index-nav w-[180px] bg-[#fff] p-[8px] mr-4">
-            {initClassification.map((item) => (
-                <ClassifyItem
+            {initClassification.map(item => (
+                <ClassifyItem key={item.order}
                     item={item}
                     // activeItem={activeItem}
                     onClick={handleClick}
