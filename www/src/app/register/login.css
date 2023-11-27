@@ -1,0 +1,31 @@
+
+.alipay {
+    width: 64px;
+    height: 64px;
+    margin-left: 2px;
+    margin-right: 2px;
+    display: inline-block;
+    background: url('https://api.iconify.design/ant-design/alipay-outlined.svg?width=64&height=64') no-repeat center center / contain;
+}
+
+.alipay:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/ant-design/alipay-outlined.svg?color=red&width=64&height=64') no-repeat center center / contain;
+}
+
+
+.wechat {
+    width: 64px;
+    height: 64px;
+    margin-left: 2px;
+    margin-right: 2px;
+    display: inline-block;
+    background: url('https://api.iconify.design/fa/wechat.svg?width=64&height=64') no-repeat center center / contain;
+}
+
+.wechat:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/fa/wechat.svg?color=red&width=64&height=64') no-repeat center center / contain;
+}

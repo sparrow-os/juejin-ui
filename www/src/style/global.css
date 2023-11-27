@@ -1,32 +1,113 @@
 /* @tailwind base; */
-@tailwind components;
 @tailwind utilities;
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
 
-html {
-  /* font-size: 12px; */
-  background-color: #f2f3f5;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+body {
+    background-color: #f2f3f5;
 }
 
 .editor-content-wrapper .bytemd {
-  height: calc(100vh - 60px)
+    height: calc(100vh - 60px)
 }
 
 .common-button {
-  height: 32px;
-  padding: 2px 16px;
-  font-size: 14px;
-  line-height: 22px;
-  border: 1px solid #1d7dfa;
-  border-radius: 2px;
-  cursor: pointer;
-  color: #fff;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  background-color: #1d7dfa;
+    height: 32px;
+    padding: 2px 16px;
+    font-size: 14px;
+    line-height: 22px;
+    border: 1px solid #1d7dfa;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #1d7dfa;
 }
+
+
+.show {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('https://api.iconify.design/mdi/show.svg') no-repeat center center / contain;
+}
+
+.show:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/mdi/show.svg?color=red&width=16&height=16') no-repeat center center / contain;
+}
+
+
+.like {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('https://api.iconify.design/solar/like-bold-duotone.svg?width=16&height=16') no-repeat center center / contain;
+}
+
+.like:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/solar/like-bold-duotone.svg?color=red&width=16&height=16') no-repeat center center / contain;
+}
+
+.like-big {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background: url('https://api.iconify.design/solar/like-bold-duotone.svg?&width=32&height=32') no-repeat center center / contain;
+}
+
+.like-big:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/solar/like-bold-duotone.svg?color=red&width=32&height=32') no-repeat center center / contain;
+}
+
+.comment {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background: url('https://api.iconify.design/material-symbols/comment.svg') no-repeat center center / contain;
+}
+
+.comment:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/material-symbols/comment.svg?color=red&width=32&height=32') no-repeat center center / contain;
+}
+
+.favorite {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background: url('https://api.iconify.design/uim/favorite.svg?width=32&height=32') no-repeat center center / contain;
+}
+
+.favorite:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/uim/favorite.svg?color=red&width=32&height=32') no-repeat center center / contain;
+}
+
+
+.share {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background: url('https://api.iconify.design/material-symbols/share-outline.svg?width=32&height=32') no-repeat center center / contain;
+}
+
+.share:hover {
+    display: inline-block;
+    cursor: pointer;
+    background: url('https://api.iconify.design/material-symbols/share-outline.svg?color=red&width=32&height=32') no-repeat center center / contain;
+}
+
+
+
+
+
