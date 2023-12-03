@@ -3,7 +3,7 @@ import React from "react";
 import "../../style/global.css"
 import "./login.css"
 import {FormSchema, FormData} from './schema'
-import {SubmitHandler, useForm, useFormState} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {valibotResolver} from "@hookform/resolvers/valibot";
 import {Button} from "@mui/material";
 import axios from "axios";
@@ -25,7 +25,7 @@ export default function Page() {
     });
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-       // const response = await axios.get('http://juejin.sparrowzoo.com/article/published');
+        // const response = await axios.get('http://juejin.sparrowzoo.com/article/published');
         alert(JSON.stringify(data, null, 2));
         setError("username", {
             type: "manual",
@@ -55,7 +55,6 @@ export default function Page() {
                         <img className="w-16 inline-block" src="http://www.sparrowzoo.com/validate-code"/><a
                         className="inline-block label-text w-32 content-center">看不清，换一张</a>
                     </div>
-
                 </div>
                 {errors.captcha &&
                     <span className="text-red-700 text-sm">{errors.captcha.message}</span>}
