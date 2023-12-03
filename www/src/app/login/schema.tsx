@@ -1,4 +1,4 @@
-import {email, maxLength, minLength, object, regex, string} from 'valibot';
+import {maxLength, minLength, object, regex, string} from 'valibot';
 
 export type FormData = { username: string; password: string, captcha: string };
 export const FormSchema = object({

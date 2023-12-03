@@ -3,21 +3,37 @@ import React from "react";
 import "../../style/global.css"
 import "./login.css"
 import {FormSchema, FormData} from './schema'
-import {SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {valibotResolver} from "@hookform/resolvers/valibot";
 import {Button} from "@mui/material";
+import axios from "axios";
 
 export default function Page() {
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        alert(JSON.stringify(data, null, 2));
-    }
+    //https://reacthookform.caitouyun.com/zh/api
     const {
         register,
         handleSubmit,
         formState: {errors},
+        setError
     } = useForm<FormData>({
         resolver: valibotResolver(FormSchema), // Useful to check TypeScript regressions
+        defaultValues: {
+            username: "",
+            password: "",
+            captcha: ""
+        }
     });
+
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+       // const response = await axios.get('http://juejin.sparrowzoo.com/article/published');
+        alert(JSON.stringify(data, null, 2));
+        setError("username", {
+            type: "manual",
+            message: "用户名不存在!"
+        });
+    }
+
+
     return (<div className="flex flex-col w-96 ">
         <form className="flex flex-col w-96 " onSubmit={handleSubmit(onSubmit)}>
             <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
