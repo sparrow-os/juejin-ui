@@ -9,12 +9,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
                                        children,
                                    }: {
-    children: React.ReactNode;
+    children: React.ReactNode
 }) {
-    // 不加body 标签 formik yup 及mui 显示不正常
     return (
-        <html>
-        <body>{children}</body>
+        <html lang="en">{children}
         </html>
-    );
+    )
 }

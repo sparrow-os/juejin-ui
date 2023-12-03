@@ -3,8 +3,6 @@ import "../../style/global.css"
 import "./login.css"
 
 export default function Page() {
-
-
     return (<div className="flex flex-col w-96 ">
         <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
         <div className="grid grid-cols-1 gap-1 ">
@@ -28,6 +26,7 @@ export default function Page() {
             </div>
 
             <div className="flex flex-row justify-center">
+
                 <button className="btn w-24 btn-accent">登录</button>
             </div>
             <div className="flex flex-row justify-end">

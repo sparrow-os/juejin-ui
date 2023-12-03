@@ -23,10 +23,8 @@ export default function Page() {
                     values: Values,
                     {setSubmitting}: FormikHelpers<Values>
                 ) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 500);
+                   alert(JSON.stringify(values, null, 2));
+                   setSubmitting(false);
                 }}
             >
                 <Form>
