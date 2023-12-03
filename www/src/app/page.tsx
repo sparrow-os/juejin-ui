@@ -5,7 +5,6 @@ import TimeLineContent from "../components/Home/TimeLineContent";
 
 import Header from "../components/Header";
 import {Footer} from "../components/Footer";
-import axios from 'axios'
 
 export default class Page extends React.Component {
         render() {
