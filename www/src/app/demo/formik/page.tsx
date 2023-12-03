@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react';
-import "../../style/global.css"
 import {Formik, Field, Form, FormikHelpers} from 'formik';
 
 interface Values {
@@ -23,8 +22,8 @@ export default function Page() {
                     values: Values,
                     {setSubmitting}: FormikHelpers<Values>
                 ) => {
-                   alert(JSON.stringify(values, null, 2));
-                   setSubmitting(false);
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
                 }}
             >
                 <Form>
