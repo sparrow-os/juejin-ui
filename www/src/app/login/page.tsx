@@ -5,8 +5,9 @@ import "./login.css"
 import {FormSchema, FormData} from './schema'
 import {SubmitHandler, useForm} from "react-hook-form";
 import {valibotResolver} from "@hookform/resolvers/valibot";
-import {Button} from "@mui/material";
-import axios from "axios";
+import {Alert, Button} from "@mui/material";
+import httpClient from "../../utils/HttpClient";
+import Snackbar, {SnackbarOrigin} from '@mui/material/Snackbar';
 
 export default function Page() {
     //https://reacthookform.caitouyun.com/zh/api
@@ -18,30 +19,78 @@ export default function Page() {
     } = useForm<FormData>({
         resolver: valibotResolver(FormSchema), // Useful to check TypeScript regressions
         defaultValues: {
-            username: "",
+            userName: "",
             password: "",
             captcha: ""
         }
     });
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-        // const response = await axios.get('http://juejin.sparrowzoo.com/article/published');
-        alert(JSON.stringify(data, null, 2));
-        setError("username", {
-            type: "manual",
-            message: "用户名不存在!"
-        });
+        await httpClient.post('/login', data)
+            .then(function (response) {
+                debugger;
+                setOpenStatus({...state, successOpen: true});
+                console.log(response);
+            })
+            .catch(function (error) {
+                debugger;
+                setOpenStatus({...state, failOpen: true, errorMessage: error});
+            });
     }
 
 
+    interface OpenState extends SnackbarOrigin {
+        successOpen: boolean,
+        failOpen: boolean;
+        errorMessage: String;
+    }
+
+    const [state, setOpenStatus] = React.useState<OpenState>({
+        successOpen: false,
+        failOpen: false,
+        vertical: 'top',
+        horizontal: 'center',
+        errorMessage: ''
+    });
+    const {vertical, horizontal, successOpen, failOpen, errorMessage} = state;
+    const handleClose = (success: boolean) => {
+        if (!success) {
+            setOpenStatus({...state, failOpen: false});
+        } else {
+            setOpenStatus({...state, successOpen: false});
+        }
+    };
+
+
     return (<div className="flex flex-col w-96 ">
-        <form className="flex flex-col w-96 " onSubmit={handleSubmit(onSubmit)}>
+        <Snackbar
+            anchorOrigin={{vertical, horizontal}}
+            open={successOpen}
+            onClose={() => {
+                handleClose(true);
+            }}
+            key={'success' + vertical + horizontal}>
+            <Alert severity="success">登录成功</Alert>
+        </Snackbar>
+        <Snackbar
+            anchorOrigin={{vertical, horizontal}}
+            open={failOpen}
+            onClose={() => {
+                handleClose(false);
+            }}
+            key={'false' + vertical + horizontal}>
+            <Alert severity="error">{errorMessage}</Alert>
+        </Snackbar>
+
+        <form className="w-[100%] " onSubmit={handleSubmit(onSubmit)}>
             <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
             <div className="grid grid-cols-1 gap-1 ">
-                <input {...register('username')} type="text" placeholder="请输入用户名"
+                <input {...register('userName')} type="text" placeholder="请输入用户名"
                        className="input  input-bordered input-info"/>
-                {errors.username &&
-                    <span className="text-red-700 text-sm" role="alert">{errors.username.message}</span>}
+                {errors.userName &&
+                    <span className="text-red-700 text-sm" role="alert">{errors.userName.message}</span>}
+
+
                 <input {...register('password')} type="password" placeholder="请输入密码"
                        className="input  input-bordered input-info"/>
                 {errors.password &&
@@ -52,8 +101,8 @@ export default function Page() {
                            className="input flex-1 input-bordered input-info"/>
 
                     <div className="flex flex-row text-center h-auto justify-center items-center">
-                        <img className="w-16 inline-block" src="http://www.sparrowzoo.com/validate-code"/><a
-                        className="inline-block label-text w-32 content-center">看不清，换一张</a>
+                        <img className="w-16 inline-block" src="http://www.sparrowzoo.com/validate-code"/>
+                        <a className="inline-block label-text w-32 content-center">看不清，换一张</a>
                     </div>
                 </div>
                 {errors.captcha &&
