@@ -11,11 +11,13 @@ const Page = () => {
     }
     const {
         handleSubmit,
-        control
+        control,
+        formState:{errors}
     } = useForm<FormData>({
         resolver: valibotResolver(FormSchema), // Useful to check TypeScript regressions
     });
 
+    // formState.errors;
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {/*<input {...register('username')} />*/}
