@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "daisyui": "^4.4.6",
+    "yarn": "^1.22.21"
+  }
+}

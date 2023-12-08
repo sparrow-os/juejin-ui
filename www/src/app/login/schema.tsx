@@ -1,8 +1,8 @@
 import {maxLength, minLength, object, regex, string} from 'valibot';
 
-export type FormData = { username: string; password: string, captcha: string };
+export type FormData = { userName: string; password: string, captcha: string };
 export const FormSchema = object({
-    username: string("请输入用户名", [
+    userName: string("请输入用户名", [
         maxLength(20, "用户名不能超过20位"),
         minLength(6, "用户名至少6位")
     ]),
