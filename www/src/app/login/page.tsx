@@ -10,6 +10,7 @@ import httpClient from "../../utils/HttpClient";
 import Snackbar, {SnackbarOrigin} from '@mui/material/Snackbar';
 
 export default function Page() {
+
     //https://reacthookform.caitouyun.com/zh/api
     const {
         register,
@@ -29,37 +30,46 @@ export default function Page() {
         await httpClient.post('/login', data)
             .then(function (response) {
                 debugger;
-                setOpenStatus({...state, successOpen: true});
+                setStatus({...state, successOpen: true});
                 console.log(response);
             })
             .catch(function (error) {
-                debugger;
-                setOpenStatus({...state, failOpen: true, errorMessage: error});
+                setStatus({...state, failOpen: true, errorMessage: error});
             });
     }
 
 
-    interface OpenState extends SnackbarOrigin {
+    const initCaptchaUrl = process.env.NEXT_PUBLIC_API + "captcha";
+
+    interface LoginState extends SnackbarOrigin {
         successOpen: boolean,
         failOpen: boolean;
         errorMessage: String;
+        captchaUrl: String;
     }
 
-    const [state, setOpenStatus] = React.useState<OpenState>({
+    //hook
+    //https://react.dev/reference/react/useState
+    const [state, setStatus] = React.useState<LoginState>({
         successOpen: false,
         failOpen: false,
         vertical: 'top',
         horizontal: 'center',
-        errorMessage: ''
+        errorMessage: '',
+        captchaUrl: initCaptchaUrl
     });
+    //解构
     const {vertical, horizontal, successOpen, failOpen, errorMessage} = state;
     const handleClose = (success: boolean) => {
         if (!success) {
-            setOpenStatus({...state, failOpen: false});
-        } else {
-            setOpenStatus({...state, successOpen: false});
+            setStatus({...state, failOpen: false});
         }
+        setStatus({...state, successOpen: false});
     };
+
+    const getCaptcha = () => {
+        setStatus({...state, captchaUrl: initCaptchaUrl +"?r="+ Math.random()});
+    }
 
 
     return (<div className="flex flex-col w-96 ">
@@ -101,8 +111,8 @@ export default function Page() {
                            className="input flex-1 input-bordered input-info"/>
 
                     <div className="flex flex-row text-center h-auto justify-center items-center">
-                        <img className="w-16 inline-block" src="http://www.sparrowzoo.com/validate-code"/>
-                        <a className="inline-block label-text w-32 content-center">看不清，换一张</a>
+                        <img className="w-16 inline-block  cursor-pointer" onClick={getCaptcha} src={state.captchaUrl}/>
+                        <a onClick={getCaptcha} className="inline-block label-text w-32 content-center cursor-pointer">看不清，换一张</a>
                     </div>
                 </div>
                 {errors.captcha &&

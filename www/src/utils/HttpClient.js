@@ -5,7 +5,10 @@ const AJAX = "ajax";
 const RESULT_OK_CODE = "0";
 
 const httpClient = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API, timeout: 3000
+    baseURL: process.env.NEXT_PUBLIC_API,
+    timeout: 3000,
+    //session id 无法保存问题
+    withCredentials:true
 });
 
 httpClient.interceptors.request.use(
