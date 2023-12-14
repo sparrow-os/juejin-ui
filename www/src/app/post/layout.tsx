@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../../components/Header";
-import TechnicalClassify from "../../components/Home/TechnicalClassify";
 import {Footer} from "../../components/Footer";
 import DetailNavigation from "../../components/DetailNavigation";
 
@@ -17,8 +16,8 @@ export default function RootLayout({
                 <DetailNavigation/>
                 {children}
             </div>
-            <Footer/>
         </div>
+        <Footer/>
         </body>
     );
 }
