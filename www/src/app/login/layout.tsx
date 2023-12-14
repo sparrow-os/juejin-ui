@@ -8,9 +8,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="container mx-auto ">
-            <PassportHeader/>
-            <div className="flex justify-center content-center">{children}</div>
-        </div>
+        <body>
+            <div className="container mx-auto ">
+                <PassportHeader/>
+                <div className="flex justify-center content-center">{children}</div>
+            </div>
+        </body>
     );
 }

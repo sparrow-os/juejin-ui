@@ -1,19 +1,23 @@
 import React from "react";
-import ContentItem, {ContentItemProp} from "../ContentItem";
-import axios from "axios";
+import ContentItem from "../ContentItem";
+import httpClient from "../../../utils/HttpClient";
+import toast, {Toaster} from "react-hot-toast";
 
 export default class ContentList extends React.Component {
     state = {
-        code:0,
         data: []
     }
-
+    _Mounted=false;
     componentDidMount = async () => {
-        try {
-            const response = await axios.get('http://juejin.sparrowzoo.com/article/published');  //请求地址加上api1
-            this.setState(response.data)
-        } catch (error) {
-
+        if (!this._Mounted) {
+            this._Mounted=true;
+            try {
+                const response = await httpClient.get('/recommend');
+                this.setState({data:response});
+            } catch (error) {
+                debugger;
+                toast.error("error");
+            }
         }
     }
 
@@ -21,10 +25,16 @@ export default class ContentList extends React.Component {
         const contentItems = this.state.data;
         return (
             <div className="grid grid-rows-1 flex-1 bg-[#fff]">
+                <Toaster
+                    position="top-center"
+                    reverseOrder={true}
+                />
                 {contentItems.map(item => (
                     <ContentItem item={item}/>
                 ))}
             </div>
+
+
         );
     }
 }

@@ -8,7 +8,7 @@ const httpClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API,
     timeout: 3000,
     //session id 无法保存问题
-    withCredentials:true
+    withCredentials: true
 });
 
 httpClient.interceptors.request.use(
@@ -28,6 +28,7 @@ httpClient.interceptors.response.use(
     response => {
         const res = response.data;
         if (res.code !== RESULT_OK_CODE) {
+            //在调用侧直接try await结果即可
             return Promise.reject(res.message);
         }
         return Promise.resolve(res.data);

@@ -8,9 +8,10 @@ import {valibotResolver} from "@hookform/resolvers/valibot";
 import {Alert, Button} from "@mui/material";
 import httpClient from "../../utils/HttpClient";
 import Snackbar, {SnackbarOrigin} from '@mui/material/Snackbar';
+import {saveToken} from "../../utils/token";
+
 
 export default function Page() {
-
     //https://reacthookform.caitouyun.com/zh/api
     const {
         register,
@@ -28,10 +29,11 @@ export default function Page() {
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         await httpClient.post('/login', data)
-            .then(function (response) {
+            .then(function (data) {
                 debugger;
                 setStatus({...state, successOpen: true});
-                console.log(response);
+                saveToken(data);
+                console.log(data);
             })
             .catch(function (error) {
                 setStatus({...state, failOpen: true, errorMessage: error});
@@ -44,8 +46,8 @@ export default function Page() {
     interface LoginState extends SnackbarOrigin {
         successOpen: boolean,
         failOpen: boolean;
-        errorMessage: String;
-        captchaUrl: String;
+        errorMessage: string;
+        captchaUrl: string;
     }
 
     //hook
@@ -63,6 +65,7 @@ export default function Page() {
     const handleClose = (success: boolean) => {
         if (!success) {
             setStatus({...state, failOpen: false});
+            return;
         }
         setStatus({...state, successOpen: false});
     };

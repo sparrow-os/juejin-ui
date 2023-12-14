@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, {useEffect} from "react";
 import "../../style/global.css"
 import "./login.css"
 import {Alert, Button} from "@mui/material";
@@ -8,8 +8,14 @@ import {valibotResolver} from "@hookform/resolvers/valibot";
 import httpClient from "../../utils/HttpClient";
 import Snackbar, {SnackbarOrigin} from '@mui/material/Snackbar';
 import {FormData, FormSchema} from "./schema";
+import {saveToken} from "../../utils/token";
 
 export default function Page() {
+    // useEffect里面的这个函数会在第一次渲染之后和更新完成后执行
+    // 相当于 componentDidMount 和 componentDidUpdate:
+    useEffect(() => {
+        console.log("componentDidMount + componentDidUpdate")
+    });
 
     //import {SubmitHandler, useForm} from "react-hook-form";
     const {
@@ -33,8 +39,8 @@ export default function Page() {
     interface RegisterState extends SnackbarOrigin {
         successOpen: boolean,
         failOpen: boolean;
-        errorMessage: String;
-        captchaUrl: String;
+        errorMessage: string;
+        captchaUrl: string;
     }
 
     const initCaptchaUrl = process.env.NEXT_PUBLIC_API + "captcha";
@@ -55,9 +61,11 @@ export default function Page() {
 
     const onRegister: SubmitHandler<FormData> = async (data) => {
         await httpClient.post('/register/email', data)
-            .then(function (response) {
+            .then(function (responseData) {
+                debugger;
                 setStatus({...state, successOpen: true});
-                console.log(response);
+                saveToken(responseData);
+                console.log(responseData);
             })
             .catch(function (error) {
                 setStatus({...state, failOpen: true, errorMessage: error});
