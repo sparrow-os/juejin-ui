@@ -248,10 +248,17 @@
     "@babel/plugin-transform-react-jsx-development" "^7.22.5"
     "@babel/plugin-transform-react-pure-annotations" "^7.23.3"
 
-"@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.4", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.7":
   version "7.23.5"
   resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.23.5.tgz"
   integrity sha512-NdUTHcPe4C99WxPub+K9l9tK5/lV4UXIoaHSYgzco9BCyjKAAwzdBI+wWtYqHt7LJdbo74ZjRPJgzVweq1sz0w==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
+"@babel/runtime@^7.23.2", "@babel/runtime@^7.23.5":
+  version "7.23.6"
+  resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.23.6.tgz#c05e610dc228855dc92ef1b53d07389ed8ab521d"
+  integrity sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -438,7 +445,7 @@
 
 "@emotion/react@^11.11.1", "@emotion/react@^11.8.1":
   version "11.11.1"
-  resolved "https://registry.npmmirror.com/@emotion/react/-/react-11.11.1.tgz"
+  resolved "https://registry.npmmirror.com/@emotion/react/-/react-11.11.1.tgz#b2c36afac95b184f73b08da8c214fdf861fa4157"
   integrity sha512-5mlW1DquU5HaxjLkfkGN1GA/fvVGdyHURRiX/0FHl2cfIfRxSOfmxEH5YS43edp0OldZrZ+dkBKbngxcNCdZvA==
   dependencies:
     "@babel/runtime" "^7.18.3"
@@ -468,7 +475,7 @@
 
 "@emotion/styled@^11.11.0":
   version "11.11.0"
-  resolved "https://registry.npmmirror.com/@emotion/styled/-/styled-11.11.0.tgz"
+  resolved "https://registry.npmmirror.com/@emotion/styled/-/styled-11.11.0.tgz#26b75e1b5a1b7a629d7c0a8b708fbf5a9cdce346"
   integrity sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==
   dependencies:
     "@babel/runtime" "^7.18.3"
@@ -675,35 +682,42 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@mui/base@5.0.0-beta.25":
-  version "5.0.0-beta.25"
-  resolved "https://registry.npmmirror.com/@mui/base/-/base-5.0.0-beta.25.tgz"
-  integrity sha512-Iiv+IcappRRv6IBlknIVmLkXxfp51NEX1+l9f+dIbBuPU4PaRULegr1lCeHKsC45KU5ruxM5xMg4R/de03aJQg==
+"@mui/base@5.0.0-beta.27", "@mui/base@^5.0.0-beta.20":
+  version "5.0.0-beta.27"
+  resolved "https://registry.npmmirror.com/@mui/base/-/base-5.0.0-beta.27.tgz#21a9c7d954a5f88f6706dfee630154c651ee73af"
+  integrity sha512-duL37qxihT1N0pW/gyXVezP7SttLkF+cLAs/y6g6ubEFmVadjbnZ45SeF12/vAiKzqwf5M0uFH1cczIPXFZygA==
   dependencies:
-    "@babel/runtime" "^7.23.4"
+    "@babel/runtime" "^7.23.5"
     "@floating-ui/react-dom" "^2.0.4"
-    "@mui/types" "^7.2.10"
-    "@mui/utils" "^5.14.19"
+    "@mui/types" "^7.2.11"
+    "@mui/utils" "^5.15.0"
     "@popperjs/core" "^2.11.8"
     clsx "^2.0.0"
     prop-types "^15.8.1"
 
-"@mui/core-downloads-tracker@^5.14.19":
-  version "5.14.19"
-  resolved "https://registry.npmmirror.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.19.tgz"
-  integrity sha512-y4JseIen5pmZs1n9hHy95HKKioKco8f6N2lford2AmjJigVJOv0KsU0qryiCpyuEUZmi/xCduVilHsK9DSkPcA==
+"@mui/core-downloads-tracker@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.0.tgz#6b45d5bff38f305402d24d3bf86075b56c578909"
+  integrity sha512-NpGtlHwuyLfJtdrlERXb8qRqd279O0VnuGaZAor1ehdNhUJOD1bSxHDeXKZkbqNpvi50hasFj7lsbTpluworTQ==
 
-"@mui/material@^5.14.19":
-  version "5.14.19"
-  resolved "https://registry.npmjs.org/@mui/material/-/material-5.14.19.tgz"
-  integrity sha512-jSPLXst/YPgDGolhiu4rbethKjLVrI1IkoK8YrFUv8ygxDuhQdsE6+ZqjSSRXk3ytTMf6ghPnQ88OFRk4XjpNw==
+"@mui/icons-material@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/icons-material/-/icons-material-5.15.0.tgz#fdc93611ca77ce3b79128be02fb6c1ae79b972b8"
+  integrity sha512-zHY6fOkaK7VfhWeyxO8MjO3IAjEYpYMXuqUhX7TkUZJ9+TSH/9dn4ClG4K2j6hdgBU5Yrq2Z/89Bo6BHHp7AdQ==
   dependencies:
-    "@babel/runtime" "^7.23.4"
-    "@mui/base" "5.0.0-beta.25"
-    "@mui/core-downloads-tracker" "^5.14.19"
-    "@mui/system" "^5.14.19"
-    "@mui/types" "^7.2.10"
-    "@mui/utils" "^5.14.19"
+    "@babel/runtime" "^7.23.5"
+
+"@mui/material@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/material/-/material-5.15.0.tgz#f801cf56d505cc52dca225438360ab9c62057285"
+  integrity sha512-60CDI/hQNwJv9a3vEZtFG7zz0USdQhVwpBd3fZqrzhuXSdiMdYMaZcCXeX/KMuNq0ZxQEAZd74Pv+gOb408QVA==
+  dependencies:
+    "@babel/runtime" "^7.23.5"
+    "@mui/base" "5.0.0-beta.27"
+    "@mui/core-downloads-tracker" "^5.15.0"
+    "@mui/system" "^5.15.0"
+    "@mui/types" "^7.2.11"
+    "@mui/utils" "^5.15.0"
     "@types/react-transition-group" "^4.4.9"
     clsx "^2.0.0"
     csstype "^3.1.2"
@@ -711,53 +725,66 @@
     react-is "^18.2.0"
     react-transition-group "^4.4.5"
 
-"@mui/private-theming@^5.14.19":
-  version "5.14.19"
-  resolved "https://registry.npmmirror.com/@mui/private-theming/-/private-theming-5.14.19.tgz"
-  integrity sha512-U9w39VpXLGVM8wZlUU/47YGTsBSk60ZQRRxQZtdqPfN1N7OVllQeN4cEKZKR8PjqqR3aYRcSciQ4dc6CttRoXQ==
+"@mui/private-theming@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/private-theming/-/private-theming-5.15.0.tgz#96de66ce097ba417e1b6b769cd67cbf516bd8876"
+  integrity sha512-7WxtIhXxNek0JjtsYy+ut2LtFSLpsUW5JSDehQO+jF7itJ8ehy7Bd9bSt2yIllbwGjCFowLfYpPk2Ykgvqm1tA==
   dependencies:
-    "@babel/runtime" "^7.23.4"
-    "@mui/utils" "^5.14.19"
+    "@babel/runtime" "^7.23.5"
+    "@mui/utils" "^5.15.0"
     prop-types "^15.8.1"
 
-"@mui/styled-engine@^5.14.19":
-  version "5.14.19"
-  resolved "https://registry.npmmirror.com/@mui/styled-engine/-/styled-engine-5.14.19.tgz"
-  integrity sha512-jtj/Pyn/bS8PM7NXdFNTHWZfE3p+vItO4/HoQbUeAv3u+cnWXcTBGHHY/xdIn446lYGFDczTh1YyX8G4Ts0Rtg==
+"@mui/styled-engine@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/styled-engine/-/styled-engine-5.15.0.tgz#44e068dbb855699053b9e6e4e6d3ed5efe98b7d9"
+  integrity sha512-6NysIsHkuUS2lF+Lzv1jiK3UjBJk854/vKVcJQVGKlPiqNEVZJNlwaSpsaU5xYXxWEZYfbVFSAomLOS/LV/ovQ==
   dependencies:
-    "@babel/runtime" "^7.23.4"
+    "@babel/runtime" "^7.23.5"
     "@emotion/cache" "^11.11.0"
     csstype "^3.1.2"
     prop-types "^15.8.1"
 
-"@mui/system@^5.14.19":
-  version "5.14.19"
-  resolved "https://registry.npmmirror.com/@mui/system/-/system-5.14.19.tgz"
-  integrity sha512-4e3Q+2nx+vgEsd0h5ftxlZGB7XtkkPos/zWqCqnxUs1l/T70s0lF2YNrWHHdSQ7LgtBu0eQ0qweZG2pR7KwkAw==
+"@mui/system@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/system/-/system-5.15.0.tgz#d4f6fd65ad8e404d4d7c7b56d755d2a63b0edddb"
+  integrity sha512-8TPjfTlYBNB7/zBJRL4QOD9kImwdZObbiYNh0+hxvhXr2koezGx8USwPXj8y/JynbzGCkIybkUztCdWlMZe6OQ==
   dependencies:
-    "@babel/runtime" "^7.23.4"
-    "@mui/private-theming" "^5.14.19"
-    "@mui/styled-engine" "^5.14.19"
-    "@mui/types" "^7.2.10"
-    "@mui/utils" "^5.14.19"
+    "@babel/runtime" "^7.23.5"
+    "@mui/private-theming" "^5.15.0"
+    "@mui/styled-engine" "^5.15.0"
+    "@mui/types" "^7.2.11"
+    "@mui/utils" "^5.15.0"
     clsx "^2.0.0"
     csstype "^3.1.2"
     prop-types "^15.8.1"
 
-"@mui/types@^7.2.10":
-  version "7.2.10"
-  resolved "https://registry.npmmirror.com/@mui/types/-/types-7.2.10.tgz"
-  integrity sha512-wX1vbDC+lzF7FlhT6A3ffRZgEoKWPF8VqRoTu4lZwouFX2t90KyCMsgepMw5DxLak1BSp/KP86CmtZttikb/gQ==
+"@mui/types@^7.2.11":
+  version "7.2.11"
+  resolved "https://registry.npmmirror.com/@mui/types/-/types-7.2.11.tgz#36b99a88f8010dc716128e568dc05681a69dc7ae"
+  integrity sha512-KWe/QTEsFFlFSH+qRYf3zoFEj3z67s+qAuSnMMg+gFwbxG7P96Hm6g300inQL1Wy///gSRb8juX7Wafvp93m3w==
 
-"@mui/utils@^5.14.19":
-  version "5.14.19"
-  resolved "https://registry.npmmirror.com/@mui/utils/-/utils-5.14.19.tgz"
-  integrity sha512-qAHvTXzk7basbyqPvhgWqN6JbmI2wLB/mf97GkSlz5c76MiKYV6Ffjvw9BjKZQ1YRb8rDX9kgdjRezOcoB91oQ==
+"@mui/utils@^5.14.14", "@mui/utils@^5.15.0":
+  version "5.15.0"
+  resolved "https://registry.npmmirror.com/@mui/utils/-/utils-5.15.0.tgz#87b4db92dd2ddf3e2676377427f50662124013b4"
+  integrity sha512-XSmTKStpKYamewxyJ256+srwEnsT3/6eNo6G7+WC1tj2Iq9GfUJ/6yUoB7YXjOD2jTZ3XobToZm4pVz1LBt6GA==
   dependencies:
-    "@babel/runtime" "^7.23.4"
+    "@babel/runtime" "^7.23.5"
     "@types/prop-types" "^15.7.11"
     prop-types "^15.8.1"
     react-is "^18.2.0"
+
+"@mui/x-tree-view@^6.17.0":
+  version "6.17.0"
+  resolved "https://registry.npmmirror.com/@mui/x-tree-view/-/x-tree-view-6.17.0.tgz#79122e4df90079f31a47d4c9df5d0bf21f2882c6"
+  integrity sha512-09dc2D+Rjg2z8KOaxbUXyPi0aw7fm2jurEtV8Xw48xJ00joLWd5QJm1/v4CarEvaiyhTQzHImNqdgeJW8ZQB6g==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+    "@mui/base" "^5.0.0-beta.20"
+    "@mui/utils" "^5.14.14"
+    "@types/react-transition-group" "^4.4.8"
+    clsx "^2.0.0"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.5"
 
 "@next/env@14.0.3":
   version "14.0.3"
@@ -961,6 +988,13 @@
   version "4.4.9"
   resolved "https://registry.npmmirror.com/@types/react-transition-group/-/react-transition-group-4.4.9.tgz"
   integrity sha512-ZVNmWumUIh5NhH8aMD9CR2hdW0fNuYInlocZHaZ+dgk/1K49j1w/HoAuK1ki+pgscQrOFRTlXeoURtuzEkV3dg==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-transition-group@^4.4.8":
+  version "4.4.10"
+  resolved "https://registry.npmmirror.com/@types/react-transition-group/-/react-transition-group-4.4.10.tgz#6ee71127bdab1f18f11ad8fb3322c6da27c327ac"
+  integrity sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==
   dependencies:
     "@types/react" "*"
 
@@ -1808,7 +1842,7 @@ client-only@0.0.1, client-only@^0.0.1:
   resolved "https://registry.npmmirror.com/client-only/-/client-only-0.0.1.tgz"
   integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
 
-clsx@^1.0.4, clsx@^1.2.1:
+clsx@^1.0.4, clsx@^1.1.1, clsx@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmmirror.com/clsx/-/clsx-1.2.1.tgz"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -3892,6 +3926,14 @@ react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-draggable@^4.4.6:
+  version "4.4.6"
+  resolved "https://registry.npmmirror.com/react-draggable/-/react-draggable-4.4.6.tgz#63343ee945770881ca1256a5b6fa5c9f5983fe1e"
+  integrity sha512-LtY5Xw1zTPqHkVmtM3X8MUOxNDOUhv/khTgBgrUvwaS064bwVvxT+q5El0uUFNx5IEPKXuRejr7UqLwBIg5pdw==
+  dependencies:
+    clsx "^1.1.1"
+    prop-types "^15.8.1"
 
 react-fast-compare@^2.0.1:
   version "2.0.4"

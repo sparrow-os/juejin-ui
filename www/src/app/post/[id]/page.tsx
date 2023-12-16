@@ -1,11 +1,12 @@
 import React from "react";
 
-// export function generateStaticParams() {
-//     return [{id: '1'}, {id: '2'}, {id: '3'}, {id: '4'}]
-// }
+export function generateStaticParams() {
+    debugger;
+    console.log("generate static params")
+    return [{id: '1'}]
+}
 
-export default function Page({params}:{params:any}) {
-
+export default function Page({params}: { params: { id: string } }) {
     return (
         <div>内容{params.id}</div>
     );

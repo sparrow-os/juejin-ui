@@ -26,7 +26,11 @@ httpClient.interceptors.request.use(
 
 httpClient.interceptors.response.use(
     response => {
+        debugger;
         const res = response.data;
+        if(!res.code){
+            return Promise.reject("can't found Result Wrap!");
+        }
         if (res.code !== RESULT_OK_CODE) {
             //在调用侧直接try await结果即可
             return Promise.reject(res.message);
