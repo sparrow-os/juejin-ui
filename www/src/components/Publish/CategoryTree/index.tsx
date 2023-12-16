@@ -52,14 +52,20 @@ const CategoryTree = forwardRef((props, ref) => {
      * }, []);
      * https://zhuanlan.zhihu.com/p/571715690
      */
-
     let _mounted = false;
     useEffect(() => {
         if (!_mounted) {
             const fetchData = async () => {
                 try {
-                    const data = await httpClient.get('/category/list');
-                    setCategoryTree(data as CategoryTreeItem);
+                    const data:any = await httpClient.get('/category/list');
+                    const categoryTree= data as CategoryTreeItem[];
+                    if(categoryTree.length==0){
+                        console.log("category tree is empty");
+                        return;
+                    }
+                    const root=categoryTree[0];
+;                   setCategoryTree(root);
+                    console.log(categoryTree);
                 } catch (error) {
                     debugger;
                     toast.error("Error "+error);
@@ -68,7 +74,8 @@ const CategoryTree = forwardRef((props, ref) => {
             fetchData();
             _mounted = true;
         }
-    });
+    },[]);//https://blog.csdn.net/ImagineCode/article/details/124627512
+    //不加依赖项会导致死循环
 
     const [categoryTreeValue, setCategoryTreeValue] = React.useState<string[]>(['']);
     const [categoryTreeKey, setCategoryTreeKey] = React.useState<string[]>(['']);
