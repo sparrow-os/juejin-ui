@@ -26,9 +26,8 @@ httpClient.interceptors.request.use(
 
 httpClient.interceptors.response.use(
     response => {
-        debugger;
         const res = response.data;
-        if(!res.code){
+        if (!res.code) {
             return Promise.reject("can't found Result Wrap!");
         }
         if (res.code !== RESULT_OK_CODE) {

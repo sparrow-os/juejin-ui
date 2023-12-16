@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {forwardRef, memo, useEffect, useImperativeHandle} from 'react';
+import {forwardRef, memo, ReactNode, useEffect, useImperativeHandle} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {TreeView} from '@mui/x-tree-view/TreeView';
@@ -57,29 +57,29 @@ const CategoryTree = forwardRef((props, ref) => {
         if (!_mounted) {
             const fetchData = async () => {
                 try {
-                    const data:any = await httpClient.get('/category/list');
-                    const categoryTree= data as CategoryTreeItem[];
-                    if(categoryTree.length==0){
+                    const data: any = await httpClient.get('/category/list');
+                    const categoryTree = data as CategoryTreeItem[];
+                    if (categoryTree.length == 0) {
                         console.log("category tree is empty");
                         return;
                     }
-                    const root=categoryTree[0];
-;                   setCategoryTree(root);
+                    const root = categoryTree[0];
+                    ;setCategoryTree(root);
                     console.log(categoryTree);
                 } catch (error) {
                     debugger;
-                    toast.error("Error "+error);
+                    toast.error("Error " + error);
                 }
             };
             fetchData();
             _mounted = true;
         }
-    },[]);//https://blog.csdn.net/ImagineCode/article/details/124627512
+    }, []);//https://blog.csdn.net/ImagineCode/article/details/124627512
     //不加依赖项会导致死循环
 
     const [categoryTreeValue, setCategoryTreeValue] = React.useState<string[]>(['']);
     const [categoryTreeKey, setCategoryTreeKey] = React.useState<string[]>(['']);
-    const [categoryTree,setCategoryTree]=React.useState<CategoryTreeItem>();
+    const [categoryTree, setCategoryTree] = React.useState<CategoryTreeItem>();
 
     // 暴露方法给父组件，以便获取子组件内的状态
     useImperativeHandle(ref, () => ({
@@ -88,12 +88,33 @@ const CategoryTree = forwardRef((props, ref) => {
         //     setOpen(true);
         // },
     }));
+
+
     const treeItemHandleChoose = (event: React.SyntheticEvent, nodeIds: string[]) => {
         //这里用数组是为了选中后不关闭树
         //判断 是否是叶子节点
         setCategoryTreeValue(nodeIds);
         //setArticleForm({...articleForm, category: nodeIds});
     };
+
+    const treeRender = (node: CategoryTreeItem): ReactNode => {
+        return <TreeItem nodeId={node.id as any} key={node.id} label={node.name}>
+            {node.children?.map((child: CategoryTreeItem) => treeRender(child))}
+        </TreeItem>
+    }
+
+    const treeView = (
+        <TreeView
+            multiSelect onNodeSelect={treeItemHandleChoose}
+            aria-label="file system navigator"
+            defaultCollapseIcon={<ExpandMoreIcon/>}
+            defaultExpandIcon={<ChevronRightIcon/>}>
+            {
+                categoryTree?.children.map((item): ReactNode => treeRender(item))
+            }
+        </TreeView>
+    )
+
     return (<FormControl sx={{m: 1, width: 300}}>
             <InputLabel id="demo-simple-select-label2">分类</InputLabel>
             <Select
@@ -103,20 +124,7 @@ const CategoryTree = forwardRef((props, ref) => {
                 multiple
                 renderValue={(selected) => selected.join("")}
                 input={<OutlinedInput label="Category"/>}>
-                <TreeView
-                    multiSelect onNodeSelect={treeItemHandleChoose}
-                    aria-label="file system navigator"
-                    defaultCollapseIcon={<ExpandMoreIcon/>}
-                    defaultExpandIcon={<ChevronRightIcon/>}>
-                    <TreeItem key="100" nodeId="10"
-                              label={<FormControlLabel control={<Checkbox/>} label="name"/>}/>
-                    <TreeItem nodeId="5" label="Documents">
-                        <TreeItem nodeId="10" label="OSS"/>
-                        <TreeItem nodeId="6" label="MUI">
-                            <TreeItem nodeId="8" label="index.js"/>
-                        </TreeItem>
-                    </TreeItem>
-                </TreeView>
+                {treeView}
             </Select>
         </FormControl>
     );
