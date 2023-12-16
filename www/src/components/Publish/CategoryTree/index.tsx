@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {TreeView} from '@mui/x-tree-view/TreeView';
 import {TreeItem} from '@mui/x-tree-view/TreeItem';
-import {Checkbox, FormControl, FormControlLabel, InputLabel, OutlinedInput, Select} from "@mui/material";
+import {FormControl, InputLabel, OutlinedInput, Select} from "@mui/material";
 import httpClient from "../../../utils/HttpClient";
 import toast from "react-hot-toast";
 
@@ -16,6 +16,7 @@ export interface CategoryTreeItem {
     children: CategoryTreeItem[];
 }
 
+const categoryTreeItemMap = new Map<number, CategoryTreeItem>([]);
 export interface CategoryTreeItemRef {
     // openForm: () => void;
 }
@@ -52,6 +53,16 @@ const CategoryTree = forwardRef((props, ref) => {
      * }, []);
      * https://zhuanlan.zhihu.com/p/571715690
      */
+
+    const buildCategoryTreeMap = (node: CategoryTreeItem) => {
+        categoryTreeItemMap.set(node.id, node);
+        if (node.children && node.children.length > 0) {
+            node.children.map((child) => {
+                buildCategoryTreeMap(child);
+            })
+        }
+    }
+
     let _mounted = false;
     useEffect(() => {
         if (!_mounted) {
@@ -64,7 +75,8 @@ const CategoryTree = forwardRef((props, ref) => {
                         return;
                     }
                     const root = categoryTree[0];
-                    ;setCategoryTree(root);
+                    buildCategoryTreeMap(root);
+                    setCategoryTree(root);
                     console.log(categoryTree);
                 } catch (error) {
                     debugger;
@@ -78,7 +90,7 @@ const CategoryTree = forwardRef((props, ref) => {
     //不加依赖项会导致死循环
 
     const [categoryTreeValue, setCategoryTreeValue] = React.useState<string[]>(['']);
-    const [categoryTreeKey, setCategoryTreeKey] = React.useState<string[]>(['']);
+    const [categoryTreeKey, setCategoryTreeKey] = React.useState<number>();
     const [categoryTree, setCategoryTree] = React.useState<CategoryTreeItem>();
 
     // 暴露方法给父组件，以便获取子组件内的状态
@@ -93,8 +105,15 @@ const CategoryTree = forwardRef((props, ref) => {
     const treeItemHandleChoose = (event: React.SyntheticEvent, nodeIds: string[]) => {
         //这里用数组是为了选中后不关闭树
         //判断 是否是叶子节点
-        setCategoryTreeValue(nodeIds);
-        //setArticleForm({...articleForm, category: nodeIds});
+        //通过nodeIds 找到对应的名字
+        const nodeId = parseInt(nodeIds[0], 10);
+        setCategoryTreeKey(nodeId);
+        const categoryNode = categoryTreeItemMap.get(nodeId);
+        if (categoryNode != null && categoryNode.children != null && categoryNode.children.length > 0) {
+            return;
+        }
+        const categoryName:string = categoryNode?categoryNode.name:'';
+        setCategoryTreeValue([categoryName]);
     };
 
     const treeRender = (node: CategoryTreeItem): ReactNode => {

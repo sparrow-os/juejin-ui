@@ -25,6 +25,7 @@ import {
     SelectChangeEvent, TextField
 } from "@mui/material";
 import CategoryTree from "../CategoryTree";
+import CoverImage from "../CoverImage";
 
 function PaperComponent(props: PaperProps) {
     return (
@@ -177,6 +178,7 @@ const ArticleForm = forwardRef((props, ref) => {
                                 ))}
                             </Select>
                         </FormControl>
+                        <CoverImage/>
                         <TextField multiline sx={{m: 1, width: 300}} rows={4} label="摘要" id="fullWidth"/>
                     </DialogContentText>
                 </DialogContent>
