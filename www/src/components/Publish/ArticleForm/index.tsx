@@ -10,22 +10,12 @@ import {TransitionProps} from '@mui/material/transitions';
 import {forwardRef, memo, useImperativeHandle, useState} from "react";
 import Paper, {PaperProps} from '@mui/material/Paper';
 import Draggable from 'react-draggable';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {TreeView} from '@mui/x-tree-view/TreeView';
-import {TreeItem} from '@mui/x-tree-view/TreeItem';
 import {
-    Checkbox,
-    FormControl, FormControlLabel,
-    InputLabel,
-    ListItemText,
-    MenuItem,
-    OutlinedInput,
-    Select,
     SelectChangeEvent, TextField
 } from "@mui/material";
 import CategoryTree from "../CategoryTree";
 import CoverImage from "../CoverImage";
+import Tag from "../Tag";
 
 function PaperComponent(props: PaperProps) {
     return (
@@ -58,44 +48,6 @@ interface ArticleForm {
     abstracts: string;
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-    {label: 'The Shawshank Redemption', year: 1994},
-    {label: 'The Godfather', year: 1972},
-    {label: 'The Godfather: Part II', year: 1974},
-    {label: 'The Dark Knight', year: 2008},
-    {label: '12 Angry Men', year: 1957},
-    {label: "Schindler's List", year: 1993},
-    {label: 'Pulp Fiction', year: 1994},
-    {
-        label: 'The Lord of the Rings: The Return of the King',
-        year: 2003,
-    },
-    {label: 'The Good, the Bad and the Ugly', year: 1966},
-    {label: 'Fight Club', year: 1999},
-    {
-        label: 'The Lord of the Rings: The Fellowship of the Ring',
-        year: 2001,
-    },
-    {
-        label: 'Star Wars: Episode V - The Empire Strikes Back',
-        year: 1980,
-    },
-    {label: 'Forrest Gump', year: 1994},
-    {label: 'Inception', year: 2010},
-    {
-        label: 'The Lord of the Rings: The Two Towers',
-        year: 2002,
-    },
-    {label: "One Flew Over the Cuckoo's Nest", year: 1975},
-    {label: 'Goodfellas', year: 1990},
-    {label: 'The Matrix', year: 1999},
-    {label: 'Seven Samurai', year: 1954},
-    {
-        label: 'Star Wars: Episode IV - A New Hope',
-        year: 1977,
-    }
-];
 const ArticleForm = forwardRef((props, ref) => {
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
@@ -117,30 +69,7 @@ const ArticleForm = forwardRef((props, ref) => {
     });
 
 
-    const tagHandleChange = (event: SelectChangeEvent<typeof articleForm.tags>) => {
-        const {target: {value}} = event;
-        setArticleForm({...articleForm, tags: value as string[]});
-    };
 
-    const treeHandleChoose = (event: React.SyntheticEvent, nodeIds: string[]) => {
-        //这里用数组是为了选中后不关闭树
-        //判断 是否是叶子节点
-        setArticleForm({...articleForm, category: nodeIds});
-    };
-
-    const [age, setAge] = React.useState<string>('');
-
-    const categoryChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
-
-    const names = [
-        'Oliver Hansen',
-        'Van Henry',
-        'April Tucker',
-        'Ralph Hubbard',
-        'Omar Alexander',
-    ];
 
 
     return (
@@ -159,25 +88,7 @@ const ArticleForm = forwardRef((props, ref) => {
                 <DialogContent>
                     <DialogContentText id="article-form">
                         <CategoryTree/>
-                        <FormControl sx={{m: 1, width: 300}}>
-                            <InputLabel id="demo-multiple-name-label">标签</InputLabel>
-                            <Select
-                                labelId="demo-multiple-checkbox-label"
-                                id="demo-multiple-checkbox"
-                                multiple
-                                value={articleForm.tags}
-                                onChange={tagHandleChange}
-                                input={<OutlinedInput label="Tag"/>}
-                                renderValue={(selected) => selected.join(', ')}
-                            >
-                                {names.map((name) => (
-                                    <MenuItem key={name} value={name}>
-                                        <Checkbox checked={articleForm.tags.indexOf(name) > -1}/>
-                                        <ListItemText primary={name}/>
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <Tag/>
                         <CoverImage/>
                         <TextField multiline sx={{m: 1, width: 300}} rows={4} label="摘要" id="fullWidth"/>
                     </DialogContentText>

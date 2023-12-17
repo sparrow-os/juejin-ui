@@ -2,9 +2,8 @@ import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {Button, ButtonProps} from "@mui/material";
-import {ExtendButtonBase} from "@mui/material/ButtonBase";
-import {ButtonTypeMap} from "@mui/material/Button/Button";
+import httpClient from "../../../utils/HttpClient";
+import toast from "react-hot-toast";
 
 const image = {
     url: 'https://img2.baidu.com/it/u=1929941019,3324507395&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
@@ -12,7 +11,7 @@ const image = {
     width: '40%',
 }
 
-const ImageButton:ExtendButtonBase<ButtonTypeMap> = styled(Button)(({theme}) => ({
+const ImageButton = styled("label")(({theme}) => ({
     position: 'relative',
     height: 200,
     [theme.breakpoints.down('sm')]: {
@@ -87,21 +86,46 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-
 export default function CoverImage() {
+    const [imageUrl, setImageUrl] = React.useState<string>(image.url);
+
+
+    const handleFileChange = (event: any) => {
+
+        //浏览器对于文件上传默认会将文件拆分，分多次http请求服务器，
+        //如果想要一次上传所有的文件，需要借助FormData对象，
+        //同时此对象可以添加其他的参数，
+        const formData = new FormData();
+        const files = event.target.files;
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+
+        httpClient.post('/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            setImageUrl("https://t7.baidu.com/it/u=4198287529,2774471735&fm=193&f=GIF");
+            toast.success('上传成功');
+        }).catch(error => {
+            toast.error('上传失败');
+        });
+    };
+
+
     return (
         <Box sx={{display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', m: 1}}>
-            <ImageButton
-                component="label" variant="contained"
-                focusRipple
-                key={image.title}
-                style={{
-                    width: image.width,
-                }}
+            <ImageButton role="button"
+                         key={image.title}
+                         style={{
+                             width: image.width,
+                             height: 200
+                         }}
             >
-                上传封面图<VisuallyHiddenInput type="file"/>
-                <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
-                <ImageBackdrop className="MuiImageBackdrop-root" />
+                <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
+                <ImageSrc style={{backgroundImage: `url(${imageUrl})`}}/>
+                <ImageBackdrop className="MuiImageBackdrop-root"/>
                 <Image>
                     <Typography
                         component="span"
@@ -115,7 +139,7 @@ export default function CoverImage() {
                         }}
                     >
                         {image.title}
-                        <ImageMarked className="MuiImageMarked-root" />
+                        <ImageMarked className="MuiImageMarked-root"/>
                     </Typography>
                 </Image>
             </ImageButton>

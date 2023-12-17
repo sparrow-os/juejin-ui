@@ -89,7 +89,7 @@ const CategoryTree = forwardRef((props, ref) => {
     }, []);//https://blog.csdn.net/ImagineCode/article/details/124627512
     //不加依赖项会导致死循环
 
-    const [categoryTreeValue, setCategoryTreeValue] = React.useState<string[]>(['']);
+    const [categoryTreeValue, setCategoryTreeValue] = React.useState<string[]>([]);
     const [categoryTreeKey, setCategoryTreeKey] = React.useState<number>();
     const [categoryTree, setCategoryTree] = React.useState<CategoryTreeItem>();
 
@@ -135,14 +135,14 @@ const CategoryTree = forwardRef((props, ref) => {
     )
 
     return (<FormControl sx={{m: 1, width: 300}}>
-            <InputLabel id="demo-simple-select-label2">分类</InputLabel>
+            <InputLabel id="category">分类</InputLabel>
             <Select
-                labelId="demo-multiple-checkbox-label2"
-                id="demo-multiple-checkbox2"
+                labelId="category"
+                id="category"
                 value={categoryTreeValue}
                 multiple
                 renderValue={(selected) => selected.join("")}
-                input={<OutlinedInput label="Category"/>}>
+                input={<OutlinedInput label="分类"/>}>
                 {treeView}
             </Select>
         </FormControl>
