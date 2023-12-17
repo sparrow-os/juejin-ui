@@ -9,24 +9,24 @@ import Slide from '@mui/material/Slide';
 import {TransitionProps} from '@mui/material/transitions';
 import {forwardRef, memo, useImperativeHandle, useState} from "react";
 import Paper, {PaperProps} from '@mui/material/Paper';
-import Draggable from 'react-draggable';
 import {
-    SelectChangeEvent, TextField
+    TextField
 } from "@mui/material";
 import CategoryTree from "../CategoryTree";
 import CoverImage from "../CoverImage";
 import Tag from "../Tag";
 
-function PaperComponent(props: PaperProps) {
-    return (
-        <Draggable
-            handle="#article-form-label"
-            cancel={'[class*="MuiDialogContent-root"]'}
-        >
-            <Paper {...props} />
-        </Draggable>
-    );
-}
+//禁用拖动
+// function PaperComponent(props: PaperProps) {
+//     return (
+//         <Draggable
+//             handle="#article-form-label"
+//             cancel={'[class*="MuiDialogContent-root"]'}
+//         >
+//             <Paper {...props} />
+//         </Draggable>
+//     );
+// }
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -78,7 +78,6 @@ const ArticleForm = forwardRef((props, ref) => {
                 open={open}
                 scroll="body"
                 TransitionComponent={Transition}
-                PaperComponent={PaperComponent}
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="article-form"
