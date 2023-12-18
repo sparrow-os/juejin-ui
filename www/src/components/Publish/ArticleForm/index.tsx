@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {memo} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,14 +8,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import {TransitionProps} from '@mui/material/transitions';
-import {forwardRef, memo, useImperativeHandle, useState} from "react";
-import Paper, {PaperProps} from '@mui/material/Paper';
-import {
-    TextField
-} from "@mui/material";
+import {TextField} from "@mui/material";
 import CategoryTree from "../CategoryTree";
 import CoverImage from "../CoverImage";
 import Tag from "../Tag";
+import {useArticleForm} from "../../../store/articleEditor";
 
 //禁用拖动
 // function PaperComponent(props: PaperProps) {
@@ -37,45 +35,16 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="left" ref={ref} {...props} />;
 });
 
-
-export interface ArticleFormRef {
-    openForm: () => void;
-}
-
-interface ArticleForm {
-    category: string[];
-    tags: string[];
-    abstracts: string;
-}
-
-const ArticleForm = forwardRef((props, ref) => {
-    const [open, setOpen] = React.useState(false);
+function ArticleForm() {
+    const articleForm = useArticleForm((articleForm) => articleForm);
     const handleClose = () => {
-        setOpen(false);
+        console.log(JSON.stringify(articleForm, null, 2));
+        articleForm.closeDialog();
     };
-
-    // 暴露方法给父组件，以便获取子组件内的状态
-    useImperativeHandle(ref, () => ({
-        openForm: () => {
-            console.log("open false");
-            setOpen(true);
-        },
-    }));
-
-    const [articleForm, setArticleForm] = React.useState<ArticleForm>({
-        category: [''],
-        tags: [''],
-        abstracts: ""
-    });
-
-
-
-
-
     return (
         <React.Fragment>
             <Dialog
-                open={open}
+                open={articleForm.open}
                 scroll="body"
                 TransitionComponent={Transition}
                 keepMounted
@@ -99,6 +68,6 @@ const ArticleForm = forwardRef((props, ref) => {
             </Dialog>
         </React.Fragment>
     );
-});
+};
 
 export default memo(ArticleForm)

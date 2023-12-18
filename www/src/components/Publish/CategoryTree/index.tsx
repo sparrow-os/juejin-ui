@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {forwardRef, memo, ReactNode, useEffect, useImperativeHandle} from 'react';
+import {memo, ReactNode, useEffect} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {TreeView} from '@mui/x-tree-view/TreeView';
@@ -7,21 +7,21 @@ import {TreeItem} from '@mui/x-tree-view/TreeItem';
 import {FormControl, InputLabel, OutlinedInput, Select} from "@mui/material";
 import httpClient from "../../../utils/HttpClient";
 import toast from "react-hot-toast";
+import {useArticleForm} from "../../../store/articleEditor";
 
-export interface CategoryTreeItem {
-    id: number;
+//这里必须 在CategoryTree方法外边，相当于相前组件的全局变量
+interface CategoryTreeItem {
+    id: number;//这里必须 是number ，即使是string 也不会类型转换
     name: string;
     parentId: number;
     icon: string;
     children: CategoryTreeItem[];
 }
-
 const categoryTreeItemMap = new Map<number, CategoryTreeItem>([]);
-export interface CategoryTreeItemRef {
-    // openForm: () => void;
-}
 
-const CategoryTree = forwardRef((props, ref) => {
+function CategoryTree() {
+    const articleForm = useArticleForm((articleForm) => articleForm);
+
     // useEffect里面的这个函数会在第一次渲染之后和更新完成后执行
     // 相当于 componentDidMount 和 componentDidUpdate:
     /**
@@ -53,7 +53,6 @@ const CategoryTree = forwardRef((props, ref) => {
      * }, []);
      * https://zhuanlan.zhihu.com/p/571715690
      */
-
     const buildCategoryTreeMap = (node: CategoryTreeItem) => {
         categoryTreeItemMap.set(node.id, node);
         if (node.children && node.children.length > 0) {
@@ -69,6 +68,7 @@ const CategoryTree = forwardRef((props, ref) => {
             const fetchData = async () => {
                 try {
                     const data: any = await httpClient.get('/category/list');
+                    debugger;
                     const categoryTree = data as CategoryTreeItem[];
                     if (categoryTree.length == 0) {
                         console.log("category tree is empty");
@@ -86,38 +86,31 @@ const CategoryTree = forwardRef((props, ref) => {
             fetchData();
             _mounted = true;
         }
-    }, []);//https://blog.csdn.net/ImagineCode/article/details/124627512
-    //不加依赖项会导致死循环
+    }, []);//https://blog.csdn.net/ImagineCode/article/details/12462751 //不加依赖项会导致死循环
 
+    //当前选中的结果
     const [categoryTreeValue, setCategoryTreeValue] = React.useState<string[]>([]);
-    const [categoryTreeKey, setCategoryTreeKey] = React.useState<number>();
+    //必须加state 才能正确渲染
     const [categoryTree, setCategoryTree] = React.useState<CategoryTreeItem>();
-
-    // 暴露方法给父组件，以便获取子组件内的状态
-    useImperativeHandle(ref, () => ({
-        // openForm: () => {
-        //     console.log("open false");
-        //     setOpen(true);
-        // },
-    }));
-
 
     const treeItemHandleChoose = (event: React.SyntheticEvent, nodeIds: string[]) => {
         //这里用数组是为了选中后不关闭树
         //判断 是否是叶子节点
         //通过nodeIds 找到对应的名字
-        const nodeId = parseInt(nodeIds[0], 10);
-        setCategoryTreeKey(nodeId);
-        const categoryNode = categoryTreeItemMap.get(nodeId);
+        const categoryId = parseInt(nodeIds[0],10);
+        articleForm.setCategory(categoryId);
+        const categoryNode = categoryTreeItemMap.get(categoryId);
         if (categoryNode != null && categoryNode.children != null && categoryNode.children.length > 0) {
             return;
         }
-        const categoryName:string = categoryNode?categoryNode.name:'';
+        const categoryName: string = categoryNode ? categoryNode.name : '';
         setCategoryTreeValue([categoryName]);
+
     };
 
     const treeRender = (node: CategoryTreeItem): ReactNode => {
-        return <TreeItem nodeId={node.id as any} key={node.id} label={node.name}>
+        //这里不允许 number 否则警告
+        return <TreeItem nodeId={node.id+""} key={node.id} label={node.name}>
             {node.children?.map((child: CategoryTreeItem) => treeRender(child))}
         </TreeItem>
     }
@@ -147,6 +140,6 @@ const CategoryTree = forwardRef((props, ref) => {
             </Select>
         </FormControl>
     );
-});
+};
 
 export default memo(CategoryTree)
