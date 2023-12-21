@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import httpClient from "../../../utils/HttpClient";
 import toast from "react-hot-toast";
+import {useArticleForm} from "../../../store/articleEditor";
 
 const image = {
     url: 'https://img2.baidu.com/it/u=1929941019,3324507395&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
@@ -88,6 +89,7 @@ const VisuallyHiddenInput = styled('input')({
 
 export default function CoverImage() {
     const [imageUrl, setImageUrl] = React.useState<string>(image.url);
+    const articleForm = useArticleForm((articleForm) => articleForm);
 
 
     const handleFileChange = (event: any) => {
@@ -106,6 +108,7 @@ export default function CoverImage() {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
+            articleForm.setCoverImage("https://t7.baidu.com/it/u=4198287529,2774471735&fm=193&f=GIF");
             setImageUrl("https://t7.baidu.com/it/u=4198287529,2774471735&fm=193&f=GIF");
             toast.success('上传成功');
         }).catch(error => {

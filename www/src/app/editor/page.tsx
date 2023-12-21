@@ -5,6 +5,8 @@ import {Toaster} from "react-hot-toast";
 import ArticleEditor, {ArticleEditorRef} from "../../components/Publish/ArticleEditor";
 import ArticleForm from "../../components/Publish/ArticleForm";
 import {useArticleForm} from "../../store/articleEditor";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {valibotResolver} from "@hookform/resolvers/valibot";
 
 export default function Page() {
     //故障保留ref 形式组件状态
@@ -22,14 +24,11 @@ export default function Page() {
     }, []);
 
     const handlePublish = () => {
-        console.log("show");
-        console.log(articleForm.title);
-        articleForm.openDialog();
+        //这里可以在editor 中实现，故意保留这种形式课程中使用...
         const articleRef = articleEditorRef.current!;
         const content = articleRef.getContent();
-        // toast.error(content as string);
-        // toast.success(articleTitle as string);
-        //console.log(content);
+        articleForm.setContent(content);
+        articleForm.openDialog();
     };
 
     return (

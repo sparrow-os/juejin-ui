@@ -13,6 +13,12 @@ import CategoryTree from "../CategoryTree";
 import CoverImage from "../CoverImage";
 import Tag from "../Tag";
 import {useArticleForm} from "../../../store/articleEditor";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {valibotResolver} from "@hookform/resolvers/valibot";
+import {FormData, FormSchema} from "./schema";
+import {number, string} from "valibot/dist";
+import httpClient from "../../../utils/HttpClient";
+import {saveToken} from "../../../utils/token";
 
 //禁用拖动
 // function PaperComponent(props: PaperProps) {
@@ -37,10 +43,42 @@ const Transition = React.forwardRef(function Transition(
 
 function ArticleForm() {
     const articleForm = useArticleForm((articleForm) => articleForm);
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        setError
+    } = useForm<FormData>({
+        resolver: valibotResolver(FormSchema), // Useful to check TypeScript regressions
+        defaultValues: {
+            title: "",
+            category: -1,
+            tagIds: [],
+            coverImage: "",
+            abstracts: "",
+            content: ""
+        }
+    });
+
+
+
+    const handleConfirm: SubmitHandler<FormData> = async (data) => {
+        await httpClient.post('/login', data)
+            .then(function (data) {
+                alert(JSON.stringify(articleForm));
+                console.log(data);
+            })
+            .catch(function (error) {
+
+            });
+    }
+
     const handleClose = () => {
-        console.log(JSON.stringify(articleForm, null, 2));
         articleForm.closeDialog();
     };
+    const handleChange = (event: any) => {
+        articleForm.setContent(event.target.value);
+    }
     return (
         <React.Fragment>
             <Dialog
@@ -58,12 +96,13 @@ function ArticleForm() {
                         <CategoryTree/>
                         <Tag/>
                         <CoverImage/>
-                        <TextField multiline sx={{m: 1, width: 300}} rows={4} label="摘要" id="fullWidth"/>
+                        <TextField onChange={handleChange} multiline sx={{m: 1, width: 300}} rows={4} label="摘要"
+                                   id="fullWidth"/>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>取消</Button>
-                    <Button onClick={handleClose}>确定</Button>
+                    <Button type="submit">确定</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>
