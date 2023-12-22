@@ -4,10 +4,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {TreeView} from '@mui/x-tree-view/TreeView';
 import {TreeItem} from '@mui/x-tree-view/TreeItem';
-import {FormControl, InputLabel, OutlinedInput, Select} from "@mui/material";
+import {FormControl, InputLabel, OutlinedInput, Select, TextField} from "@mui/material";
 import httpClient from "../../../utils/HttpClient";
 import toast from "react-hot-toast";
 import {useArticleForm} from "../../../store/articleEditor";
+import register from "../../../pages/auth-pages/register";
+import {UseFormRegister} from "react-hook-form/dist/types/form";
+import {Controller} from "react-hook-form";
 
 //这里必须 在CategoryTree方法外边，相当于相前组件的全局变量
 interface CategoryTreeItem {
@@ -17,9 +20,10 @@ interface CategoryTreeItem {
     icon: string;
     children: CategoryTreeItem[];
 }
+
 const categoryTreeItemMap = new Map<number, CategoryTreeItem>([]);
 
-function CategoryTree() {
+function CategoryTree({name, register}: { name: string, register: UseFormRegister<any> }) {
     const articleForm = useArticleForm((articleForm) => articleForm);
 
     // useEffect里面的这个函数会在第一次渲染之后和更新完成后执行
@@ -97,7 +101,7 @@ function CategoryTree() {
         //这里用数组是为了选中后不关闭树
         //判断 是否是叶子节点
         //通过nodeIds 找到对应的名字
-        const categoryId = parseInt(nodeIds[0],10);
+        const categoryId = parseInt(nodeIds[0], 10);
         articleForm.setCategory(categoryId);
         const categoryNode = categoryTreeItemMap.get(categoryId);
         if (categoryNode != null && categoryNode.children != null && categoryNode.children.length > 0) {
@@ -110,7 +114,7 @@ function CategoryTree() {
 
     const treeRender = (node: CategoryTreeItem): ReactNode => {
         //这里不允许 number 否则警告
-        return <TreeItem nodeId={node.id+""} key={node.id} label={node.name}>
+        return <TreeItem nodeId={node.id + ""} key={node.id} label={node.name}>
             {node.children?.map((child: CategoryTreeItem) => treeRender(child))}
         </TreeItem>
     }
@@ -127,19 +131,20 @@ function CategoryTree() {
         </TreeView>
     )
 
-    return (<FormControl sx={{m: 1, width: 300}}>
+    return (
+        <FormControl sx={{m: 1, width: 300}}>
             <InputLabel id="category">分类</InputLabel>
-            <Select
-                labelId="category"
-                id="category"
-                value={categoryTreeValue}
-                multiple
-                renderValue={(selected) => selected.join("")}
-                input={<OutlinedInput label="分类"/>}>
+            <Select {...register(name)}
+                    labelId="category"
+                    id="category"
+                    value={categoryTreeValue}
+                    multiple
+                    renderValue={(selected) => selected.join("")}
+                    input={<OutlinedInput label="分类"/>}>
                 {treeView}
             </Select>
         </FormControl>
-    );
+    )
 };
 
 export default memo(CategoryTree)

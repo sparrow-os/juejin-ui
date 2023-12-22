@@ -62,7 +62,6 @@ export default function Page() {
     const onRegister: SubmitHandler<FormData> = async (data) => {
         await httpClient.post('/register/email', data)
             .then(function (responseData) {
-                debugger;
                 setStatus({...state, successOpen: true});
                 saveToken(responseData);
                 console.log(responseData);

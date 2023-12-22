@@ -2,29 +2,33 @@
 //https://docs.pmnd.rs/zustand/guides/typescript
 
 import create from "zustand";
+import {FormData} from "../components/Publish/ArticleForm/schema";
+import {UseFormReturn} from "react-hook-form/dist/types/form";
+import {FieldErrors} from "react-hook-form";
+
 
 interface ArticleForm {
-    title: string,
+    title: string;
     category: number;
     tagIds: number[];
     coverImage: string;
     abstracts: string;
     content: string;
     open: boolean;
-    setCategory: (category: number) => void
-    setContent: (content: string) => void
-    setAbstract: (abstracts: string) => void
-    setTitle: (title: string) => void
-    setCoverImage: (imageCover: string) => void
-    setTagIds: (tagIds: number[]) => void
-    openDialog: () => void,
-    closeDialog: () => void,
+    setCategory: (category: number) => void;
+    setContent: (content: string) => void;
+    setAbstract: (abstracts: string) => void;
+    setTitle: (title: string) => void;
+    setCoverImage: (imageCover: string) => void;
+    setTagIds: (tagIds: number[]) => void;
+    openDialog: () => void;
+    closeDialog: () => void;
 }
 
-export const useArticleForm = create<ArticleForm>()((set,get) => (
+export const useArticleForm = create<ArticleForm>()((set, get) => (
     {
         title: '',
-        category:-1,
+        category: -1,
         tagIds: [],
         coverImage: '',
         abstracts: '',
@@ -34,7 +38,9 @@ export const useArticleForm = create<ArticleForm>()((set,get) => (
         setCoverImage: (img: string) => set((state) => ({coverImage: img})),
         setContent: (c: string) => set((state) => ({content: c})),
         setAbstract: (a: string) => set((state) => ({abstracts: a})),
-        setTagIds: (t: number[]) => set((state) => {return {...state,tagIds:t}}),
+        setTagIds: (t: number[]) => set((state) => {
+            return {...state, tagIds: t}
+        }),
         setTitle: (t: string) => set((state) => ({title: t})),
         openDialog: () => set((state) => ({open: true})),
         closeDialog: () => set((state) => ({open: false})),

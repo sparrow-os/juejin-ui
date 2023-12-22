@@ -43,26 +43,27 @@ const Transition = React.forwardRef(function Transition(
 
 function ArticleForm() {
     const articleForm = useArticleForm((articleForm) => articleForm);
-    const {
-        register,
-        handleSubmit,
-        formState: {errors},
-        setError
-    } = useForm<FormData>({
+    const useFormReturn= useForm<FormData>({
         resolver: valibotResolver(FormSchema), // Useful to check TypeScript regressions
         defaultValues: {
-            title: "",
             category: -1,
-            tagIds: [],
+            tagIds:"",
             coverImage: "",
             abstracts: "",
-            content: ""
         }
     });
 
 
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        setValue
+    }=useFormReturn;
 
-    const handleConfirm: SubmitHandler<FormData> = async (data) => {
+    console.log(errors);
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+
         await httpClient.post('/login', data)
             .then(function (data) {
                 alert(JSON.stringify(articleForm));
@@ -91,19 +92,30 @@ function ArticleForm() {
                 aria-labelledby="article-form-label"
             >
                 <DialogTitle>{"发布文章"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="article-form">
-                        <CategoryTree/>
-                        <Tag/>
-                        <CoverImage/>
-                        <TextField onChange={handleChange} multiline sx={{m: 1, width: 300}} rows={4} label="摘要"
-                                   id="fullWidth"/>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>取消</Button>
-                    <Button type="submit">确定</Button>
-                </DialogActions>
+                <form className="w-[100%] " onSubmit={handleSubmit(onSubmit)}>
+                    <DialogContent>
+                        <DialogContentText id="article-form">
+                            {/*https://stackoverflow.com/questions/60902521/how-to-pass-register-to-react-hook-forms-factory-component*/}
+                            <CategoryTree register={register} name="category"/>
+                            {errors.category &&
+                                <span className="text-red-700 text-sm" role="alert">{errors.category.message}</span>}
+                            <Tag useFormReturn={useFormReturn}/>
+                            {errors.tagIds &&
+                                <span className="text-red-700 text-sm" role="alert">{errors.tagIds.message}</span>}
+                            <br/>
+
+                            <CoverImage/>
+                            <TextField {...register("abstracts")} onChange={handleChange} multiline sx={{m: 1, width: 300}} rows={4} label="摘要"
+                                       id="fullWidth"/><br/>
+                            {errors.abstracts &&
+                                <span className="text-red-700 text-sm" role="alert">{errors.abstracts.message}</span>}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>取消</Button>
+                        <Button type="submit">确定</Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </React.Fragment>
     );

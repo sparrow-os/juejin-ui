@@ -13,6 +13,10 @@ import {useEffect} from "react";
 import httpClient from "../../../utils/HttpClient";
 import toast, {Toaster} from "react-hot-toast";
 import {useArticleForm} from "../../../store/articleEditor";
+import {UseFormRegister, UseFormReturn} from "react-hook-form/dist/types/form";
+import {FieldError, FieldErrors, useForm} from "react-hook-form";
+import {FormData, FormSchema} from "../ArticleForm/schema";
+import {valibotResolver} from "@hookform/resolvers/valibot";
 
 
 //标签的对象定义
@@ -24,10 +28,17 @@ export interface TagItem {
 const tagKvMap = new Map<number, TagItem>([]);
 
 
-export default function Tag() {
+export default function Tag({useFormReturn}:{useFormReturn:UseFormReturn<FormData>}) {
     const articleForm = useArticleForm((articleForm) => articleForm);
     //服务器返回的标签列表
     const [tagList, setTagList] = React.useState<TagItem[]>([]);
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        setValue,
+        setError,clearErrors
+    } = useFormReturn;
 
     let _mounted = false;
     useEffect(() => {
@@ -65,14 +76,23 @@ export default function Tag() {
             toast.error("最多只能选择三个标签");
             return;
         }
-        articleForm.setTagIds(valueList);
+        //https://react-hook-form.com/docs/useform/seterror
+        if (valueList.length == 0) {
+            setError("tagIds", {"type": "manual", message: "请选择标签"})
+        } else {
+            clearErrors("tagIds");
+        }
+        console.log(errors);
         //https://stackoverflow.com/questions/73108589/how-to-get-selected-checkbox-value-and-id-from-the-multi-select-in-mui
         //无法确定当前是否被 选中
+        articleForm.setTagIds(valueList);
     };
 
     const renderValue = (selected: number[]) => {
-        let values:any = [];
-        selected.forEach((tagId)=>{values.push(tagKvMap.get(tagId)?.tagName)});
+        let values: any = [];
+        selected.forEach((tagId) => {
+            values.push(tagKvMap.get(tagId)?.tagName)
+        });
         return values.join(" ");
     }
 
@@ -83,14 +103,13 @@ export default function Tag() {
     return (
         <FormControl sx={{m: 1, width: 300}}>
             <InputLabel id="tag">标签</InputLabel>
-            <Select
-                labelId="tag"
-                id="tag"
-                multiple
-                value={articleForm.tagIds}
-                onChange={tagHandleChange}
-                input={<OutlinedInput label="标签"/>}
-                renderValue={renderValue}
+            <Select {...register("tagIds")} onChange={tagHandleChange}
+                    labelId="tag"
+                    id="tag"
+                    multiple
+                    value={articleForm.tagIds}
+                    input={<OutlinedInput {...register("tagIds")} label="标签"/>}
+                    renderValue={renderValue}
             >
                 {tagList.map((entry: TagItem) => (
                     <MenuItem key={entry.id} value={entry.id}>
