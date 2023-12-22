@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import {
     Checkbox,
     FormControl,
@@ -9,14 +10,10 @@ import {
     Select,
     SelectChangeEvent
 } from "@mui/material";
-import {useEffect} from "react";
 import httpClient from "../../../utils/HttpClient";
-import toast, {Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import {useArticleForm} from "../../../store/articleEditor";
-import {UseFormRegister, UseFormReturn} from "react-hook-form/dist/types/form";
-import {FieldError, FieldErrors, useForm} from "react-hook-form";
-import {FormData, FormSchema} from "../ArticleForm/schema";
-import {valibotResolver} from "@hookform/resolvers/valibot";
+import {useFormContext} from "react-hook-form";
 
 
 //标签的对象定义
@@ -28,17 +25,15 @@ export interface TagItem {
 const tagKvMap = new Map<number, TagItem>([]);
 
 
-export default function Tag({useFormReturn}:{useFormReturn:UseFormReturn<FormData>}) {
+export default function Tag() {
     const articleForm = useArticleForm((articleForm) => articleForm);
     //服务器返回的标签列表
     const [tagList, setTagList] = React.useState<TagItem[]>([]);
     const {
-        register,
-        handleSubmit,
         formState: {errors},
         setValue,
-        setError,clearErrors
-    } = useFormReturn;
+        setError, clearErrors,
+    } = useFormContext();
 
     let _mounted = false;
     useEffect(() => {
@@ -77,14 +72,17 @@ export default function Tag({useFormReturn}:{useFormReturn:UseFormReturn<FormDat
             return;
         }
         //https://react-hook-form.com/docs/useform/seterror
+        // https://juejin.cn/post/7208440329652650043
         if (valueList.length == 0) {
+            //会根据 value 判断
+            setValue("tagIds", []);
             setError("tagIds", {"type": "manual", message: "请选择标签"})
         } else {
             clearErrors("tagIds");
+            setValue("tagIds", valueList.join(","));
         }
         console.log(errors);
         //https://stackoverflow.com/questions/73108589/how-to-get-selected-checkbox-value-and-id-from-the-multi-select-in-mui
-        //无法确定当前是否被 选中
         articleForm.setTagIds(valueList);
     };
 
@@ -101,14 +99,15 @@ export default function Tag({useFormReturn}:{useFormReturn:UseFormReturn<FormDat
     }
 
     return (
+
         <FormControl sx={{m: 1, width: 300}}>
             <InputLabel id="tag">标签</InputLabel>
-            <Select {...register("tagIds")} onChange={tagHandleChange}
+            <Select onChange={tagHandleChange}
                     labelId="tag"
                     id="tag"
                     multiple
                     value={articleForm.tagIds}
-                    input={<OutlinedInput {...register("tagIds")} label="标签"/>}
+                    input={<OutlinedInput label="标签"/>}
                     renderValue={renderValue}
             >
                 {tagList.map((entry: TagItem) => (

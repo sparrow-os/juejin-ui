@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import {useArticleForm} from "../../../store/articleEditor";
 import register from "../../../pages/auth-pages/register";
 import {UseFormRegister} from "react-hook-form/dist/types/form";
-import {Controller} from "react-hook-form";
+import {Controller, useFormContext} from "react-hook-form";
 
 //这里必须 在CategoryTree方法外边，相当于相前组件的全局变量
 interface CategoryTreeItem {
@@ -23,9 +23,14 @@ interface CategoryTreeItem {
 
 const categoryTreeItemMap = new Map<number, CategoryTreeItem>([]);
 
-function CategoryTree({name, register}: { name: string, register: UseFormRegister<any> }) {
+function CategoryTree() {
     const articleForm = useArticleForm((articleForm) => articleForm);
 
+    const {
+        formState: {errors},
+        setValue,
+        setError, clearErrors,
+    } = useFormContext();
     // useEffect里面的这个函数会在第一次渲染之后和更新完成后执行
     // 相当于 componentDidMount 和 componentDidUpdate:
     /**
@@ -102,14 +107,22 @@ function CategoryTree({name, register}: { name: string, register: UseFormRegiste
         //判断 是否是叶子节点
         //通过nodeIds 找到对应的名字
         const categoryId = parseInt(nodeIds[0], 10);
-        articleForm.setCategory(categoryId);
         const categoryNode = categoryTreeItemMap.get(categoryId);
         if (categoryNode != null && categoryNode.children != null && categoryNode.children.length > 0) {
             return;
         }
         const categoryName: string = categoryNode ? categoryNode.name : '';
         setCategoryTreeValue([categoryName]);
+        articleForm.setCategory(categoryId);
 
+        if (categoryName == '') {
+            //必须和定义时的类型一致
+            setValue('category', 0);
+            setError("category", {type: '', message: "请选择类别"});
+        } else {
+            clearErrors("category");
+            setValue("category", categoryId);
+        }
     };
 
     const treeRender = (node: CategoryTreeItem): ReactNode => {
@@ -134,13 +147,13 @@ function CategoryTree({name, register}: { name: string, register: UseFormRegiste
     return (
         <FormControl sx={{m: 1, width: 300}}>
             <InputLabel id="category">分类</InputLabel>
-            <Select {...register(name)}
-                    labelId="category"
-                    id="category"
-                    value={categoryTreeValue}
-                    multiple
-                    renderValue={(selected) => selected.join("")}
-                    input={<OutlinedInput label="分类"/>}>
+            <Select
+                labelId="category"
+                id="category"
+                value={categoryTreeValue}
+                multiple
+                renderValue={(selected) => selected.join("")}
+                input={<OutlinedInput label="分类"/>}>
                 {treeView}
             </Select>
         </FormControl>

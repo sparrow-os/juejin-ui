@@ -13,7 +13,7 @@ import CategoryTree from "../CategoryTree";
 import CoverImage from "../CoverImage";
 import Tag from "../Tag";
 import {useArticleForm} from "../../../store/articleEditor";
-import {SubmitHandler, useForm} from "react-hook-form";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {valibotResolver} from "@hookform/resolvers/valibot";
 import {FormData, FormSchema} from "./schema";
 import {number, string} from "valibot/dist";
@@ -43,11 +43,11 @@ const Transition = React.forwardRef(function Transition(
 
 function ArticleForm() {
     const articleForm = useArticleForm((articleForm) => articleForm);
-    const useFormReturn= useForm<FormData>({
+    const formHooks = useForm<FormData>({
         resolver: valibotResolver(FormSchema), // Useful to check TypeScript regressions
         defaultValues: {
             category: -1,
-            tagIds:"",
+            tagIds: "",
             coverImage: "",
             abstracts: "",
         }
@@ -58,8 +58,9 @@ function ArticleForm() {
         register,
         handleSubmit,
         formState: {errors},
-        setValue
-    }=useFormReturn;
+        setValue,
+        control
+    } = formHooks;
 
     console.log(errors);
     const onSubmit: SubmitHandler<FormData> = async (data) => {
@@ -92,30 +93,35 @@ function ArticleForm() {
                 aria-labelledby="article-form-label"
             >
                 <DialogTitle>{"发布文章"}</DialogTitle>
-                <form className="w-[100%] " onSubmit={handleSubmit(onSubmit)}>
-                    <DialogContent>
-                        <DialogContentText id="article-form">
-                            {/*https://stackoverflow.com/questions/60902521/how-to-pass-register-to-react-hook-forms-factory-component*/}
-                            <CategoryTree register={register} name="category"/>
-                            {errors.category &&
-                                <span className="text-red-700 text-sm" role="alert">{errors.category.message}</span>}
-                            <Tag useFormReturn={useFormReturn}/>
-                            {errors.tagIds &&
-                                <span className="text-red-700 text-sm" role="alert">{errors.tagIds.message}</span>}
-                            <br/>
+                <FormProvider {...formHooks}>
+                    <form className="w-[100%] " onSubmit={handleSubmit(onSubmit)}>
+                        <DialogContent>
+                            <DialogContentText id="article-form">
+                                {/*https://stackoverflow.com/questions/60902521/how-to-pass-register-to-react-hook-forms-factory-component*/}
+                                <CategoryTree/>
+                                {errors.category &&
+                                    <span className="text-red-700 text-sm"
+                                          role="alert">{errors.category.message}</span>}
+                                <Tag/>
+                                {errors.tagIds &&
+                                    <span className="text-red-700 text-sm" role="alert">{errors.tagIds.message}</span>}
+                                <br/>
 
-                            <CoverImage/>
-                            <TextField {...register("abstracts")} onChange={handleChange} multiline sx={{m: 1, width: 300}} rows={4} label="摘要"
-                                       id="fullWidth"/><br/>
-                            {errors.abstracts &&
-                                <span className="text-red-700 text-sm" role="alert">{errors.abstracts.message}</span>}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>取消</Button>
-                        <Button type="submit">确定</Button>
-                    </DialogActions>
-                </form>
+                                <CoverImage/>
+                                <TextField {...register("abstracts")} onChange={handleChange} multiline
+                                           sx={{m: 1, width: 300}} rows={4} label="摘要"
+                                           id="fullWidth"/><br/>
+                                {errors.abstracts &&
+                                    <span className="text-red-700 text-sm"
+                                          role="alert">{errors.abstracts.message}</span>}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>取消</Button>
+                            <Button type="submit">确定</Button>
+                        </DialogActions>
+                    </form>
+                </FormProvider>
             </Dialog>
         </React.Fragment>
     );
