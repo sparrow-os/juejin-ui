@@ -19,6 +19,7 @@ import {FormData, FormSchema} from "./schema";
 import {number, string} from "valibot/dist";
 import httpClient from "../../../utils/HttpClient";
 import {saveToken} from "../../../utils/token";
+import toast from "react-hot-toast";
 
 //禁用拖动
 // function PaperComponent(props: PaperProps) {
@@ -62,16 +63,23 @@ function ArticleForm() {
         control
     } = formHooks;
 
-    console.log(errors);
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-
-        await httpClient.post('/login', data)
+        debugger;
+        console.log(JSON.stringify(articleForm));
+        const formData = {
+            title: articleForm.title,
+            content: articleForm.content,
+            abstracts: articleForm.abstracts,
+            coverImage: articleForm.coverImage,
+            tags: articleForm.tagIds,
+            categoryId: articleForm.category
+        }
+        await httpClient.post('/article/publish', formData)
             .then(function (data) {
-                alert(JSON.stringify(articleForm));
-                console.log(data);
+                toast.success("文章发布成功!");
             })
             .catch(function (error) {
-
+                toast.error(error);
             });
     }
 
@@ -79,7 +87,7 @@ function ArticleForm() {
         articleForm.closeDialog();
     };
     const handleChange = (event: any) => {
-        articleForm.setContent(event.target.value);
+        articleForm.setAbstract(event.target.value);
     }
     return (
         <React.Fragment>
