@@ -10,7 +10,6 @@ export default function RootLayout({
     return (
         <body>
             <div className="container mx-auto ">
-                <PassportHeader/>
                 <div className="flex justify-center content-center">{children}</div>
             </div>
         </body>

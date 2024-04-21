@@ -29,6 +29,8 @@ const Page = () => {
             {/*<input {...register('password')} />*/}
             {/*{errors.password && <span role="alert">{errors.password.message}</span>}*/}
             {/*<br/>*/}
+
+            {/*https://react-hook-form.com/advanced-usage#ControlledmixedwithUncontrolledComponents*/}
             <Controller
                 control={control}
                 name="username"

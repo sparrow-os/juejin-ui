@@ -10,6 +10,11 @@ module.exports = {
     experimental: {
         appDir: true,
     },
+    webpack: (config,options) => {
+        config.module.rules.push()
+        return config
+    },
+
     //js 等资源文件的前缀
     assetPrefix: process.env.NEXT_ASSET_PREFIX,
     // basePath: "/home", //node

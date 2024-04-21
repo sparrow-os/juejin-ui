@@ -9,7 +9,7 @@ export const FormSchema = object({
     password: string([
         minLength(6, "请输入至少6位密码"),
         maxLength(20, "密码不要超过20位"),
-        regex(/^[a-zA-Z0-9_]{6,20}$/, "请入正确的密码")
+        regex(/^(?![A-Za-z0-9]+$)(?![a-z0-9\W]+$)(?![A-Za-z\W]+$)(?![A-Z0-9\W]+$)[a-zA-Z0-9\W]{8,}$/, "密码必须是包含大写字母、小写字母、数字、特殊符号的8位以上组合")
     ]),
     captcha: string([
         maxLength(4, "请输入4位验证码"),

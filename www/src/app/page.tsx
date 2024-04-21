@@ -2,12 +2,11 @@
 import React from "react";
 import TechnicalClassify from "../components/Home/TechnicalClassify";
 import TimeLineContent from "../components/Home/TimeLineContent";
-
 import Header from "../components/Header";
 import {Footer} from "../components/Footer";
 
 export default class Page extends React.Component {
-        render() {
+    render() {
         return (
             <body>
             <Header/>

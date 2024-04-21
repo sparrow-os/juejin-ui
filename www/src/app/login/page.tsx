@@ -8,6 +8,8 @@ import {valibotResolver} from "@hookform/resolvers/valibot";
 import {Alert, Button} from "@mui/material";
 import httpClient from "../../utils/HttpClient";
 import Snackbar, {SnackbarOrigin} from '@mui/material/Snackbar';
+import {saveToken} from "../../utils/token";
+
 
 export default function Page() {
     //https://reacthookform.caitouyun.com/zh/api
@@ -27,39 +29,50 @@ export default function Page() {
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         await httpClient.post('/login', data)
-            .then(function (response) {
+            .then(function (data) {
                 debugger;
-                setOpenStatus({...state, successOpen: true});
-                console.log(response);
+                setStatus({...state, successOpen: true});
+                saveToken(data);
+                console.log(data);
             })
             .catch(function (error) {
-                debugger;
-                setOpenStatus({...state, failOpen: true, errorMessage: error});
+                setStatus({...state, failOpen: true, errorMessage: error});
             });
     }
 
 
-    interface OpenState extends SnackbarOrigin {
+    const initCaptchaUrl = process.env.NEXT_PUBLIC_API + "captcha";
+
+    interface LoginState extends SnackbarOrigin {
         successOpen: boolean,
         failOpen: boolean;
-        errorMessage: String;
+        errorMessage: string;
+        captchaUrl: string;
     }
 
-    const [state, setOpenStatus] = React.useState<OpenState>({
+    //hook
+    //https://react.dev/reference/react/useState
+    const [state, setStatus] = React.useState<LoginState>({
         successOpen: false,
         failOpen: false,
         vertical: 'top',
         horizontal: 'center',
-        errorMessage: ''
+        errorMessage: '',
+        captchaUrl: initCaptchaUrl
     });
+    //解构
     const {vertical, horizontal, successOpen, failOpen, errorMessage} = state;
     const handleClose = (success: boolean) => {
         if (!success) {
-            setOpenStatus({...state, failOpen: false});
-        } else {
-            setOpenStatus({...state, successOpen: false});
+            setStatus({...state, failOpen: false});
+            return;
         }
+        setStatus({...state, successOpen: false});
     };
+
+    const getCaptcha = () => {
+        setStatus({...state, captchaUrl: initCaptchaUrl +"?r="+ Math.random()});
+    }
 
 
     return (<div className="flex flex-col w-96 ">
@@ -100,9 +113,9 @@ export default function Page() {
                     <input {...register('captcha')} type="text" placeholder="验证码"
                            className="input flex-1 input-bordered input-info"/>
 
-                    <div className="flex flex-row text-center h-auto justify-center items-center">
-                        <img className="w-16 inline-block" src="http://www.sparrowzoo.com/validate-code"/>
-                        <a className="inline-block label-text w-32 content-center">看不清，换一张</a>
+                    <div className="flex file-input-lg flex-row text-center h-auto justify-center items-center">
+                        <img className="w-16 inline-block  cursor-pointer" onClick={getCaptcha} src={state.captchaUrl}/>
+                        <a onClick={getCaptcha} className="inline-block label-text w-32 content-center cursor-pointer">看不清，换一张</a>
                     </div>
                 </div>
                 {errors.captcha &&
