@@ -2,9 +2,9 @@ import * as bytemd from "bytemd";
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight-ssr";
 import frontmatter from "@bytemd/plugin-frontmatter";
-import CustomEditorPlugin from "@/plugins/EditorPlugin";
 
 import { markdownThemes, highlightStyles } from "./data";
+import CustomEditorPlugin from "../plugins/EditorPlugin";
 
 // 根据key获取主题内容
 export function getThemeStyle(key = "juetu") {
@@ -23,7 +23,7 @@ export function getHighlighStyle(key = "github") {
 // };
 
 // 根据markdown的字符串生成HTML结构
-export const markdown2Html = (value: string, dispatchPlugin) => {
+export const markdown2Html = (value: string, dispatchPlugin:any) => {
   const plugins = [gfm(), highlight(), frontmatter(), CustomEditorPlugin()];
 
   try {
