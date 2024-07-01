@@ -2,10 +2,6 @@
 //https://docs.pmnd.rs/zustand/guides/typescript
 
 import create from "zustand";
-import {FormData} from "../components/Publish/ArticleForm/schema";
-import {UseFormReturn} from "react-hook-form/dist/types/form";
-import {FieldErrors} from "react-hook-form";
-
 
 interface ArticleForm {
     title: string;

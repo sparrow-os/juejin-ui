@@ -46,7 +46,7 @@ export default function Page() {
         //这里可以在editor 中实现，故意保留这种形式课程中使用...
         const articleRef = articleEditorRef.current!;
         const content = articleRef.getContent();
-        if(content.length<100){
+        if (content.length < 100) {
             toast.error("内容至少100字");
             return;
         }
@@ -64,7 +64,9 @@ export default function Page() {
         <div className="editor-container">
             <form className="w-[100%] " onSubmit={handleSubmit(onSubmit)}>
                 <div className="editor-header h-[60px] flex justify-between items-center px-4 bg-[#fff]">
-                    <input {...register("title")} value={articleForm.title}
+                    <input {...register("title")}
+                           ref={articleTitleRef}
+                           value={articleForm.title}
                            className="outline-none border-none text-2xl font-bold w-[80%]"
                            placeholder="请输入文章标题..."
                            maxLength={100}

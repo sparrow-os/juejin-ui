@@ -8,9 +8,7 @@ import {FormControl, InputLabel, OutlinedInput, Select, TextField} from "@mui/ma
 import httpClient from "../../../utils/HttpClient";
 import toast from "react-hot-toast";
 import {useArticleForm} from "../../../store/articleEditor";
-import register from "../../../pages/auth-pages/register";
-import {UseFormRegister} from "react-hook-form/dist/types/form";
-import {Controller, useFormContext} from "react-hook-form";
+import {useFormContext} from "react-hook-form";
 
 //这里必须 在CategoryTree方法外边，相当于相前组件的全局变量
 interface CategoryTreeItem {
