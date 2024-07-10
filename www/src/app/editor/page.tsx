@@ -62,7 +62,7 @@ export default function Page() {
         />
         <ArticleForm/>
         <div className="editor-container">
-            <form className="w-[100%] " onSubmit={handleSubmit(onSubmit)}>
+            <form className="w-[100%]" onSubmit={handleSubmit(onSubmit)}>
                 <div className="editor-header h-[60px] flex justify-between items-center px-4 bg-[#fff]">
                     <input {...register("title")}
                            ref={articleTitleRef}
@@ -79,9 +79,8 @@ export default function Page() {
                         </button>
                     </div>
                 </div>
-                <div className="editor-content-wrapper">
-                    <ArticleEditor ref={articleEditorRef}/>
-                </div>
+
+                <ArticleEditor ref={articleEditorRef}/>
             </form>
         </div>
         </body>

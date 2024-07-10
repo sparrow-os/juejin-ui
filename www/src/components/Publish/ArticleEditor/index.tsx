@@ -64,8 +64,6 @@ const ArticleEditor = forwardRef((props, ref) => {
         // Add more plugins here
     ];
     return (
-        <div
-            className="editor-content-wrapper">
             <Editor
                 value={contentValue}
                 plugins={plugins}
@@ -82,7 +80,6 @@ const ArticleEditor = forwardRef((props, ref) => {
                 }}
                 locale={zh_Hans}
             />
-        </div>
     );
 });
 

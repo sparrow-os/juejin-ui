@@ -12,7 +12,7 @@ import mermaid from "@bytemd/plugin-mermaid";
 // 官方配置参考 https://github.com/bytedance/bytemd/blob/main/playground/src/app.svelte
 import 'bytemd/dist/index.css'
 // https://github.com/sindresorhus/github-markdown-css
-import 'github-markdown-css'
+// import 'github-markdown-css'
 import 'highlight.js/styles/vs.css'
 // placed after highlight styles to override `code` padding
 import 'katex/dist/katex.css'
@@ -66,23 +66,25 @@ const SparrowEditor = forwardRef((props, ref) => {
         // Add more plugins here
     ];
     return (
-
-        <Editor
-            value={contentValue}
-            plugins={plugins}
-            onChange={(v) => {
-                setContentValue(v);
-            }}
-            uploadImages={async (files) => {
-                // upload images here
-                return [
-                    {
-                        url: 'https://picsum.photos/200/300',
-                    },
-                ]
-            }}
-            locale={zh_Hans}
-        />
+        <div
+            className="editor-content-wrapper h-full">
+            <Editor
+                value={contentValue}
+                plugins={plugins}
+                onChange={(v) => {
+                    setContentValue(v);
+                }}
+                uploadImages={async (files) => {
+                    // upload images here
+                    return [
+                        {
+                            url: 'https://picsum.photos/200/300',
+                        },
+                    ]
+                }}
+                locale={zh_Hans}
+            />
+        </div>
     );
 });
 SparrowEditor.displayName = "SparrowEditor";
