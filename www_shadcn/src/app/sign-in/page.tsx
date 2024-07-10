@@ -50,7 +50,7 @@ export default function Page() {
                         </div>
                         <div className="mt-4 text-center text-sm">
                             还没有帐号?{" "}
-                            <Link href="#" className="underline">
+                            <Link href="/sign-up" className="underline">
                                 注册
                             </Link>
                         </div>

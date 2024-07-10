@@ -15,7 +15,7 @@ export default function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <title>麻雀窝技术社区</title>
             </head>
-            <body>
+            <body className={"h-full"}>
             <ThemeProvider
                 attribute="class"
                 defaultTheme="system"
