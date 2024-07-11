@@ -2,7 +2,8 @@
 const nextConfig = {
     assetPrefix: process.env.NEXT_ASSET_PREFIX,
     images: {
-        domains: ['http://img.sparrowzoo.net']
+        domains: ['http://img.sparrowzoo.net'],
+        unoptimized: true
     },
     // 编译文件的输出目录
     distDir: "dist/pc",
