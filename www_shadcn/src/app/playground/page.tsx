@@ -2,6 +2,7 @@
 import React from "react";
 import toast, {Toaster} from "react-hot-toast";
 import SparrowEditor from "@/components/editor";
+import {ModeToggle} from "@/components/mode-toggle";
 
 export default function page() {
     return (
@@ -24,6 +25,9 @@ export default function page() {
                             <button type="submit">
                                 发布
                             </button>
+
+
+                            <ModeToggle/>
                         </div>
                     </div>
                     <SparrowEditor/>

@@ -3,11 +3,11 @@ import 'bytemd/dist/index.css'
 import {Editor} from '@bytemd/react'
 import React, {ChangeEvent, forwardRef, memo, useEffect, useImperativeHandle, useRef, useState} from "react";
 import frontmatter from "@bytemd/plugin-frontmatter";
-import highlight from "@bytemd/plugin-highlight-ssr";
+import highlight from "@bytemd/plugin-highlight";
 import gemoji from "@bytemd/plugin-gemoji";
 import mediumZoom from "@bytemd/plugin-medium-zoom";
 import breaks from "@bytemd/plugin-breaks";
-import math from "@bytemd/plugin-math-ssr";
+import math from "@bytemd/plugin-math";
 import mermaid from "@bytemd/plugin-mermaid";
 // 官方配置参考 https://github.com/bytedance/bytemd/blob/main/playground/src/app.svelte
 import 'bytemd/dist/index.css'
