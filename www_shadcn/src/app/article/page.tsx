@@ -63,6 +63,7 @@ export default function Page() {
                         <HeartIcon className={"w-10 h-fit"}/>
                     </ArticleNav>
                 </aside>
+                <div  className="lg:mr-[20rem] flex flex-1 sm:ml-20 border rounded-lg">
                 <Card className="lg:mr-[20rem] flex flex-col flex-1 sm:ml-20 border rounded-lg">
                     <CardHeader className="flex flex-col gap-2 space-y-0">
                         <CardTitle>工作7年了，才明白技术的本质不过是工具而已，那么未来的方向在哪里？</CardTitle>
@@ -130,6 +131,7 @@ export default function Page() {
                 </Card>
                 <div className="lg:flex fixed  right-0 w-[20rem] z-10 bg-background min-h-screen hidden  border rounded-lg p-4">
                     right
+                </div>
                 </div>
             </div>
         </>
