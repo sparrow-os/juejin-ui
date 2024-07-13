@@ -63,11 +63,12 @@ export default function Page() {
                         <HeartIcon className={"w-10 h-fit"}/>
                     </ArticleNav>
                 </aside>
-                <div  className="lg:mr-[20rem] flex flex-1 sm:ml-20 border rounded-lg">
+
                 <Card className="lg:mr-[20rem] flex flex-col flex-1 sm:ml-20 border rounded-lg">
                     <CardHeader className="flex flex-col gap-2 space-y-0">
                         <CardTitle>工作7年了，才明白技术的本质不过是工具而已，那么未来的方向在哪里？</CardTitle>
-                        <div className="flex justify-between xl:flex-row flex-col space-x-4 text-sm text-muted-foreground gap-2">
+                        <div
+                            className="flex justify-between xl:flex-row flex-col space-x-4 text-sm text-muted-foreground gap-2">
                             <div className="flex items-center space-x-4">
                                 <div
                                     className="flex items-center space-x-1 border rounded-md bg-outline text-secondary-foreground">
@@ -120,7 +121,8 @@ export default function Page() {
                                 <span>标签</span>
                                 <div className="flex text-right    flex-col
 
-                                     ">Updated April 2023</div>
+                                     ">Updated April 2023
+                                </div>
                             </div>
                         </div>
                     </CardHeader>
@@ -129,9 +131,9 @@ export default function Page() {
                         </HtmlContent>
                     </CardContent>
                 </Card>
-                <div className="lg:flex fixed  right-0 w-[20rem] z-10 bg-background min-h-screen hidden  border rounded-lg p-4">
+                <div
+                    className="lg:flex fixed  right-0 w-[20rem] z-10 bg-background min-h-screen hidden  border rounded-lg p-4">
                     right
-                </div>
                 </div>
             </div>
         </>
