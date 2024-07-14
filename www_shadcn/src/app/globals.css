@@ -71,6 +71,9 @@
 
 @layer utilities {
     .bytemd {
-        height: calc(100vh - 60px)!important;
+        height: calc(100vh - 60px) !important;
+    }
+    code span{
+        @apply text-pretty
     }
 }

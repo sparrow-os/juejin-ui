@@ -1,28 +1,29 @@
-import Header from "@/components/header";
-import {ArticleItem} from "@/components/article-item";
+import Header from '@/components/header'
+import { ArticleItem } from '@/components/article-item'
+import React from 'react'
 
 export default function Page() {
     return (
         <>
-            <Header/>
-            <div className="container flex flex-col xl:flex-row min-h-screen w-full gap-2 mt-4">
-                <aside className="flex xl:flex-col xl:w-44 xl:min-h-screen flex-row gap-4 h-16 w-full border rounded-lg text-center justify-left items-center">
-                    <nav className="m-2">
-                        menu1
-                    </nav>
-                    <nav className="m-2">
-menu 2
-                    </nav>
+            <Header />
+            <div className="container mt-4 flex min-h-screen w-full flex-col gap-2 xl:flex-row">
+                <aside className="justify-left flex h-16 w-full flex-row items-center gap-4 rounded-lg border text-center xl:sticky xl:min-h-screen xl:w-44 xl:flex-col">
+                    <nav className="m-2">menu1</nav>
+                    <nav className="m-2">menu 2</nav>
                 </aside>
-                <div className="flex flex-1 flex-row gap-2">
-                    <div className="md:flex flex-col md:w-[78%] w-full   border rounded-lg p-4">
-                        <ArticleItem/>
-                        <ArticleItem/>
-                        <ArticleItem/>
-                    </div>
-                    <div className="md:flex flex-1 hidden  border rounded-lg p-4">
-                        right
-                    </div>
+                <div className="flex flex-1 flex-col gap-2 rounded-lg border p-4">
+                    <ArticleItem />
+                    <ArticleItem />
+                    <ArticleItem />
+                    <ArticleItem />
+                    <ArticleItem />
+                    <ArticleItem />
+                    <ArticleItem />
+                </div>
+                <div className="sticky top-20 z-10 hidden h-fit w-[20rem] rounded-lg border bg-background p-4 lg:flex">
+                    right right right right right right right right right right
+                    right right right right right right right right right right
+                    right right right right right right right right
                 </div>
             </div>
         </>

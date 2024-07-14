@@ -1,35 +1,35 @@
 import gfm from '@bytemd/plugin-gfm'
 import 'bytemd/dist/index.css'
-import {Editor} from '@bytemd/react'
-import React, {ChangeEvent, forwardRef, memo, useEffect, useImperativeHandle, useRef, useState} from "react";
-import frontmatter from "@bytemd/plugin-frontmatter";
-import highlight from "@bytemd/plugin-highlight";
-import gemoji from "@bytemd/plugin-gemoji";
-import mediumZoom from "@bytemd/plugin-medium-zoom";
-import breaks from "@bytemd/plugin-breaks";
-import math from "@bytemd/plugin-math";
-import mermaid from "@bytemd/plugin-mermaid";
-// 官方配置参考 https://github.com/bytedance/bytemd/blob/main/playground/src/app.svelte
-import 'bytemd/dist/index.css'
+import { Editor } from '@bytemd/react'
+import React, { forwardRef, memo, useImperativeHandle, useState } from 'react'
+import frontmatter from '@bytemd/plugin-frontmatter'
+import highlight from '@bytemd/plugin-highlight'
+import gemoji from '@bytemd/plugin-gemoji'
+import mediumZoom from '@bytemd/plugin-medium-zoom'
+import breaks from '@bytemd/plugin-breaks'
+import math from '@bytemd/plugin-math'
+import mermaid from '@bytemd/plugin-mermaid'
 // https://github.com/sindresorhus/github-markdown-css
 // import 'github-markdown-css'
-import 'highlight.js/styles/vs.css'
+//这里使用tailwind 排版效果
+// import 'highlight.js/styles/vs.css'
+import 'highlight.js/styles/github.css'
 // placed after highlight styles to override `code` padding
 import 'katex/dist/katex.css'
-import zh_Hans from "bytemd/locales/zh_Hans.json";
+import zh_Hans from 'bytemd/locales/zh_Hans.json'
 
 export interface ArticleEditorRef {
-    getContent: () => string;
+    getContent: () => string
 }
 
 const SparrowEditor = forwardRef((props, ref) => {
-    const [contentValue, setContentValue] = useState("");
+    const [contentValue, setContentValue] = useState('')
     // 暴露方法给父组件，以便获取子组件内的状态
     useImperativeHandle(ref, () => ({
         getContent: () => {
-            return contentValue;
+            return contentValue
         },
-    }));
+    }))
 
     // https://bytemd.js.org/playground/
     //在线演示
@@ -62,17 +62,16 @@ const SparrowEditor = forwardRef((props, ref) => {
         mediumZoom(),
         breaks(),
         math(),
-        mermaid()
+        mermaid(),
         // Add more plugins here
-    ];
+    ]
     return (
-        <div
-            className="editor-content-wrapper h-full">
+        <div className="editor-content-wrapper h-fullm md:prose-lg lg:prose-xl">
             <Editor
                 value={contentValue}
                 plugins={plugins}
                 onChange={(v) => {
-                    setContentValue(v);
+                    setContentValue(v)
                 }}
                 uploadImages={async (files) => {
                     // upload images here
@@ -85,7 +84,7 @@ const SparrowEditor = forwardRef((props, ref) => {
                 locale={zh_Hans}
             />
         </div>
-    );
-});
-SparrowEditor.displayName = "SparrowEditor";
+    )
+})
+SparrowEditor.displayName = 'SparrowEditor'
 export default memo(SparrowEditor)

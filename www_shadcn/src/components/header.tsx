@@ -15,8 +15,7 @@ import {ModeToggle} from "@/components/mode-toggle";
 
 export default function Header() {
     return (
-
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
             <nav className="md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 hidden md:w-full">
                 <Link
                     href="#"

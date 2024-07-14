@@ -1,36 +1,36 @@
 'use client'
-import React from "react";
-import toast, {Toaster} from "react-hot-toast";
-import SparrowEditor from "@/components/editor";
-import {ModeToggle} from "@/components/mode-toggle";
+import React from 'react'
+import { Toaster } from 'react-hot-toast'
+import SparrowEditor from '@/components/editor'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export default function page() {
     return (
         <>
-            <Toaster
-                position="top-center"
-                reverseOrder={true}
-            />
+            <Toaster position="top-center" reverseOrder={true} />
             {/*<ArticleForm/>*/}
             <div className="container">
                 <form className="w-[100%]">
-                    <div className=" flex justify-between items-center px-4 h-[60px]">
+                    <div className="flex h-[60px] flex-row items-center justify-between gap-4 px-4">
                         <input
-                            className="outline-none border-none text-2xl font-bold w-[80%]"
+                            className="w-[80%] border-none font-bold outline-none"
                             placeholder="请输入文章标题..."
                             maxLength={100}
                         />
-                        <span className="text-red-700 text-sm" role="alert"></span>
-                        <div>
-                            <button type="submit">
-                                发布
-                            </button>
-
-
-                            <ModeToggle/>
+                        <span
+                            className="text-sm text-red-700"
+                            role="alert"
+                        ></span>
+                        <div
+                            className={
+                                'flex flex-row items-center justify-between gap-4'
+                            }
+                        >
+                            <button type="submit">发布</button>
+                            <ModeToggle />
                         </div>
                     </div>
-                    <SparrowEditor/>
+                    <SparrowEditor />
                 </form>
             </div>
         </>

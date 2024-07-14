@@ -1,15 +1,14 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
 
-import {Button} from "@/components/ui/button"
-import {Input} from "@/components/ui/input"
-import {Label} from "@/components/ui/label"
-import {ModeToggle} from "@/components/mode-toggle";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export default function Page() {
     return (
-        <div className="w-full text-right">
-            <ModeToggle/>
+        <div className="w-full text-left">
             <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
                 <div className="flex items-center justify-center py-12">
                     <div className="mx-auto grid w-[350px] gap-6">
@@ -39,7 +38,7 @@ export default function Page() {
                                         忘记密码?
                                     </Link>
                                 </div>
-                                <Input id="password" type="password" required/>
+                                <Input id="password" type="password" required />
                             </div>
                             <Button type="submit" className="w-full">
                                 登录
@@ -49,14 +48,14 @@ export default function Page() {
                             </Button>
                         </div>
                         <div className="mt-4 text-center text-sm">
-                            还没有帐号?{" "}
+                            还没有帐号?{' '}
                             <Link href="/sign-up" className="underline">
                                 注册
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div className="hidden bg-muted lg:block">
+                <div className="hidden min-h-screen bg-muted lg:block">
                     <Image
                         src="/brand/sparrow2.jpg"
                         alt="Image"
