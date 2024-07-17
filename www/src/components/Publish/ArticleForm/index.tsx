@@ -16,9 +16,7 @@ import {useArticleForm} from "../../../store/articleEditor";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {valibotResolver} from "@hookform/resolvers/valibot";
 import {FormData, FormSchema} from "./schema";
-import {number, string} from "valibot/dist";
 import httpClient from "../../../utils/HttpClient";
-import {saveToken} from "../../../utils/token";
 import toast from "react-hot-toast";
 
 //禁用拖动
