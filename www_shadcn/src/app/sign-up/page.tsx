@@ -5,7 +5,9 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { AuthForm } from '@/components/auth-form'
 
+
 export default function AuthenticationPage() {
+
     return (
         <>
             <Link
@@ -53,9 +55,6 @@ export default function AuthenticationPage() {
                             <h1 className="text-2xl font-semibold tracking-tight">
                                 注册新用户
                             </h1>
-                            <p className="text-sm text-muted-foreground">
-                                请输入邮箱
-                            </p>
                         </div>
                         <AuthForm />
                         <p className="px-8 text-center text-sm text-muted-foreground">

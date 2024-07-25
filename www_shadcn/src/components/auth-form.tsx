@@ -7,40 +7,83 @@ import {Icons} from "@/components/ui/icons"
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
+import Link from "next/link";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {FormData, OuterSchema} from "@/app/sign-up/schema";
+import {valibotResolver} from "@hookform/resolvers/valibot";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function AuthForm({className, ...props}: UserAuthFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-
-    async function onSubmit(event: React.SyntheticEvent) {
-        event.preventDefault()
-        setIsLoading(true)
-
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 3000)
-    }
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        alert(JSON.stringify(data, null, 2));
+    };
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm<FormData>({
+        //相当于v.parse
+        resolver: valibotResolver(
+            OuterSchema,
+            //https://valibot.dev/guides/parse-data/
+            {abortEarly: true}
+        ), // Useful to check TypeScript regressions
+    });
 
     return (
         <div className={cn("grid gap-6", className)} {...props}>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid gap-2">
                     <div className="grid gap-1">
                         <Label className="sr-only" htmlFor="email">
-                            Email
+                            邮箱
                         </Label>
+                        {errors.email && <span role="alert">{errors.email.message}</span>}
                         <Input
+                            {...register("email")}
                             id="email"
-                            placeholder="***@163.com"
                             type="email"
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
                         />
+
                     </div>
+                    <div className="grid gap-1">
+                        <Label className="sr-only" htmlFor="userName">用户名</Label>
+                        <Input
+                            {...register("userName")}
+                            id="userName"
+                            type="text"
+                            placeholder="user name"
+                            required
+                        />
+                        {errors.userName && <span role="alert">{errors.userName.message}</span>}
+                    </div>
+                    <div className="grid gap-1">
+                        <div className="flex items-center">
+                            <Label htmlFor="password">密码</Label>
+                            <Link href="#" className="ml-auto inline-block text-sm underline">
+                                Forgot your password?
+                            </Link>
+                        </div>
+                        <Input  {...register("password")} id="password" type="password" required/>
+                    </div>
+                    <div className="grid gap-1">
+                        <Label htmlFor="confirmPassword">确认密码</Label>
+                        <Input {...register("confirmPassword")} id="confirmPassword" type="password" required/>
+                    </div>
+
+                    <div className="flex-col items-left ">
+                        <Label className="w-32" htmlFor="captcha">验证码</Label>
+                        <Input {...register("captcha")} className="flex-1 w-32" id="captcha" type="text" required/>
+                    </div>
+
                     <Button disabled={isLoading}>
                         {isLoading && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
