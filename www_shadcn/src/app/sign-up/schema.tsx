@@ -1,13 +1,16 @@
 import * as v from "valibot";
 
 export const InnerFormSchema = v.object({
-    userName: v.pipe(v.string(),
-        v.nonEmpty("请输入用户名")),
+
 
     email: v.pipe(
-        v.string(),
-        v.email("请输入正确的邮箱地址"),
-        v.nonEmpty("请输入邮箱地址")
+        v.string("请输入邮箱地址"),
+        v.email("请输入正确的邮箱地址")
+    ),
+    userName: v.pipe(
+        v.string("请输入用户名2"),
+        v.nonEmpty("请输入用户名"),
+        v.minLength(6,"用户名只能包含字母、数字、下划线和中文")
     ),
     password: v.pipe(
         v.string(),

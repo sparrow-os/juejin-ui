@@ -42,17 +42,19 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                         <Label className="sr-only" htmlFor="email">
                             邮箱
                         </Label>
-                        {errors.email && <span role="alert">{errors.email.message}</span>}
+
                         <Input
                             {...register("email")}
                             id="email"
                             type="email"
+                            placeholder="Email"
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
+                            required
                         />
-
+                        {errors.email && <span role="alert">{errors.email.message}</span>}
                     </div>
                     <div className="grid gap-1">
                         <Label className="sr-only" htmlFor="userName">用户名</Label>
