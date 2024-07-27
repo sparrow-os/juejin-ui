@@ -1,8 +1,6 @@
 import * as v from "valibot";
 
 export const InnerFormSchema = v.object({
-
-
     email: v.pipe(
         v.string("请输入邮箱地址"),
         v.email("请输入正确的邮箱地址")
@@ -14,7 +12,7 @@ export const InnerFormSchema = v.object({
     ),
     password: v.pipe(
         v.string(),
-        v.nonEmpty("Please enter your password."),
+        v.nonEmpty("请输入密码."),
         v.minLength(8, "Your password must have 8 characters or more.")
     ),
 
@@ -26,7 +24,7 @@ export const InnerFormSchema = v.object({
     captcha: v.pipe(
         v.string(),
         v.nonEmpty("请输入验证码."),
-        v.minLength(6, "Your password must have 8 characters or more.")
+        v.minLength(4, "Your password must have 8 characters or more.")
     ),
 });
 type InputForm = v.InferInput<typeof InnerFormSchema>; // { email: string; password: string }

@@ -21,7 +21,7 @@ httpClient.interceptors.request.use(
         return config;
     }, error => {
         console.log(error);
-        Promise.reject(error.message);
+        return Promise.reject(error.message);
     });
 
 httpClient.interceptors.response.use(

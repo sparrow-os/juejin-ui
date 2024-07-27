@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-
 import {cn} from "@/lib/utils"
 import {Icons} from "@/components/ui/icons"
 import {Button} from "@/components/ui/button"
@@ -9,30 +8,34 @@ import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
 import Link from "next/link";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {FormData, OuterSchema} from "@/app/sign-up/schema";
+import {FormData, OuterSchema} from "@/schema/sign-up";
 import {valibotResolver} from "@hookform/resolvers/valibot";
+import {ErrorMessage} from "@hookform/error-message";
+import signUp from "@/api/signup";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function AuthForm({className, ...props}: UserAuthFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        alert(JSON.stringify(data, null, 2));
-    };
     const {
         register,
         handleSubmit,
         control,
-        formState: { errors },
+        formState: {errors},
     } = useForm<FormData>({
+        mode: "onChange",
         //相当于v.parse
         resolver: valibotResolver(
             OuterSchema,
             //https://valibot.dev/guides/parse-data/
-            {abortEarly: true}
+            {abortEarly: false}
         ), // Useful to check TypeScript regressions
     });
+    const onSubmit: SubmitHandler<FormData> = (data: FormData, event: React.BaseSyntheticEvent | undefined) => {
+        setIsLoading(true);
+        signUp(data);
+    };
 
     return (
         <div className={cn("grid gap-6", className)} {...props}>
@@ -51,10 +54,11 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
-                            disabled={isLoading}
-                            required
                         />
-                        {errors.email && <span role="alert">{errors.email.message}</span>}
+                        <ErrorMessage
+                            errors={errors}
+                            name="email"
+                            render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                     </div>
                     <div className="grid gap-1">
                         <Label className="sr-only" htmlFor="userName">用户名</Label>
@@ -63,9 +67,11 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                             id="userName"
                             type="text"
                             placeholder="user name"
-                            required
                         />
-                        {errors.userName && <span role="alert">{errors.userName.message}</span>}
+                        <ErrorMessage
+                            errors={errors}
+                            name="userName"
+                            render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                     </div>
                     <div className="grid gap-1">
                         <div className="flex items-center">
@@ -74,16 +80,31 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                                 Forgot your password?
                             </Link>
                         </div>
-                        <Input  {...register("password")} id="password" type="password" required/>
+                        <Input  {...register("password")} id="password" type="password"/>
+                        <ErrorMessage
+                            errors={errors}
+                            name="password"
+                            render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                     </div>
                     <div className="grid gap-1">
                         <Label htmlFor="confirmPassword">确认密码</Label>
-                        <Input {...register("confirmPassword")} id="confirmPassword" type="password" required/>
+                        <Input {...register("confirmPassword")} id="confirmPassword" type="password"/>
+                        <ErrorMessage
+                            errors={errors}
+                            name="confirmPassword"
+                            render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                     </div>
 
                     <div className="flex-col items-left ">
                         <Label className="w-32" htmlFor="captcha">验证码</Label>
-                        <Input {...register("captcha")} className="flex-1 w-32" id="captcha" type="text" required/>
+                        <div className="flex flex-row items-left">
+                            <Input {...register("captcha")} className="w-32" id="captcha" type="text"/>
+                            <img src="/captcha" alt="captcha" className="w-16 h-16"/>
+                        </div>
+                        <ErrorMessage
+                            errors={errors}
+                            name="captcha"
+                            render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                     </div>
 
                     <Button disabled={isLoading}>
