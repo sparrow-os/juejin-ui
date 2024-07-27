@@ -34,7 +34,12 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
     });
     const onSubmit: SubmitHandler<FormData> = (data: FormData, event: React.BaseSyntheticEvent | undefined) => {
         setIsLoading(true);
-        signUp(data);
+            signUp(data).then(() => {
+        }).catch((error) => {
+            debugger;
+            console.error(error);
+            setIsLoading(false);
+        });
     };
 
     return (

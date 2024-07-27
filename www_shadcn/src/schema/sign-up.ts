@@ -6,25 +6,28 @@ export const InnerFormSchema = v.object({
         v.email("请输入正确的邮箱地址")
     ),
     userName: v.pipe(
-        v.string("请输入用户名2"),
+        v.string(),
         v.nonEmpty("请输入用户名"),
-        v.minLength(6,"用户名只能包含字母、数字、下划线和中文")
+        v.minLength(6,"用户名至少6个字符"),
+        v.maxLength(20,"用户名最多20个字符"),
+        v.regex(/^[a-zA-Z0-9_]{6,20}$/, "用户名只能包含字母、数字、下划线和中文")
     ),
     password: v.pipe(
         v.string(),
         v.nonEmpty("请输入密码."),
-        v.minLength(8, "Your password must have 8 characters or more.")
+        v.minLength(8, "密码至少8个字符"),
+        v.regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/, "密码格式 至少8个字符，至少1个字母，1个数字和1个特殊字符"),
     ),
 
     confirmPassword: v.pipe(
         v.string(),
-        v.nonEmpty("Please enter your password."),
-        v.minLength(8, "Your password must have 8 characters or more.")
+        v.nonEmpty("密码不能为空."),
+        v.minLength(8, "密码至少8个字符")
     ),
     captcha: v.pipe(
         v.string(),
         v.nonEmpty("请输入验证码."),
-        v.minLength(4, "Your password must have 8 characters or more.")
+        v.minLength(4, "验证码至少4个字符")
     ),
 });
 type InputForm = v.InferInput<typeof InnerFormSchema>; // { email: string; password: string }

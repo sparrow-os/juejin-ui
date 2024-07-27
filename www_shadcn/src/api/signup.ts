@@ -1,5 +1,5 @@
 import {FormData} from '@/schema/sign-up';
+import HttpClient from "@/utils/HttpClient";
 export default function signUp(signData:FormData) {
-  httpClient.post('/api/signup', signData)
-  alert(JSON.stringify(signData, null, 2));
+  return HttpClient.post('/register/email', signData);
 }
