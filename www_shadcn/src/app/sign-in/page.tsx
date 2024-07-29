@@ -4,7 +4,6 @@ import Link from 'next/link'
 import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import {Label} from '@/components/ui/label'
-import {Checkbox} from "@/components/ui/checkbox";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {FormData, SignInFormSchema} from "@/schema/sign-in";
 import {valibotResolver} from "@hookform/resolvers/valibot";
@@ -15,6 +14,7 @@ import toast, {Toaster} from "react-hot-toast";
 import {Icons} from "@/components/ui/icons";
 import CAPTCHA_URL from "@/utils/constant";
 import {ErrorMessage} from "@hookform/error-message";
+import {Checkbox} from "@/components/ui/checkbox";
 
 export default function Page() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
@@ -29,6 +29,7 @@ export default function Page() {
     }, []);
     const {
         register,
+        setValue,
         handleSubmit,
         formState: {errors},
     } = useForm<FormData>({
@@ -40,6 +41,11 @@ export default function Page() {
             {abortEarly: false}
         ), // Useful to check TypeScript regressions
     });
+
+    function onRmemberMeChange(value:any) {
+        debugger
+        setValue("rememberMe", value);
+    }
 
     const onSubmit: SubmitHandler<FormData> = (data: FormData, event: React.BaseSyntheticEvent | undefined) => {
         setIsLoading(true);
@@ -104,7 +110,7 @@ export default function Page() {
                                 <div className="flex-col items-left ">
                                     <Label className="w-32" htmlFor="captcha">验证码</Label>
                                     <div className="flex flex-row items-left">
-                                        <Input  {...register("captcha")} className="w-32" id="captcha" type="text"/>
+                                        <Input placeholder="1111"  {...register("captcha")} className="w-32" id="captcha" type="text"/>
                                         <img ref={captchaRef} src={CAPTCHA_URL} alt="captcha" className="w-16 h-8 cursor-pointer"/>
                                     </div>
                                     <ErrorMessage
@@ -113,15 +119,17 @@ export default function Page() {
                                         render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
                                 <div className="flex flex-row-reverse gap-2">
-                                    <Input value={"true"} type="checkbox" {...register('rememberMe')} id="rememberMe" className="mr-2" />
+                                    {/*<Input value={"true"} type="checkbox" {...register('rememberMe')} id="rememberMe" className="mr-2" />*/}
                                     {/*<input {...register('rememberMe')} type="checkbox"  name="rememberMe" value="on"/>*/}
-                                    <Checkbox  {...register('rememberMe')} id="rememberMe"/>
-                                    <label
-                                        htmlFor="rememberMe"
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        Remember me
-                                    </label>
+                                    {/*<Checkbox onCheckedChange={onRmemberMeChange}  id="rememberMe"/>*/}
+                                    <Checkbox {...register('rememberMe')}  id="rememberMe"/>
+
+                                    {/*<label*/}
+                                    {/*    htmlFor="rememberMe"*/}
+                                    {/*    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"*/}
+                                    {/*>*/}
+                                    {/*    Remember me*/}
+                                    {/*</label>*/}
                                     <ErrorMessage
                                         errors={errors}
                                         name="rememberMe"
