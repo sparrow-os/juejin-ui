@@ -12,12 +12,24 @@ import {FormData, OuterSchema} from "@/schema/sign-up";
 import {valibotResolver} from "@hookform/resolvers/valibot";
 import {ErrorMessage} from "@hookform/error-message";
 import signUp from "@/api/signup";
+import toast, {Toaster} from "react-hot-toast";
+import CAPTCHA_URL from "@/utils/constant";
+import {useEffect, useRef} from "react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function AuthForm({className, ...props}: UserAuthFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const captchaRef = useRef<HTMLImageElement>(null);
+    useEffect(() => {
+        const captcha = captchaRef.current;
+        if (captcha) {
+            captcha.addEventListener("click", () => {
+                captcha.src = `${CAPTCHA_URL}?${Math.random()}`;
+            });
+        }
+    }, []);
     const {
         register,
         handleSubmit,
@@ -35,22 +47,29 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
     const onSubmit: SubmitHandler<FormData> = (data: FormData, event: React.BaseSyntheticEvent | undefined) => {
         setIsLoading(true);
             signUp(data).then(() => {
+                setIsLoading(false);
+                toast.success('恭喜！注册成功，欢迎来到sparrow zoo ,志哥欢迎您！！！')
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000);
         }).catch((error) => {
-            debugger;
-            console.error(error);
-            setIsLoading(false);
+                toast.error(error)
+                setIsLoading(false);
         });
     };
 
     return (
         <div className={cn("grid gap-6", className)} {...props}>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid gap-2">
                     <div className="grid gap-1">
                         <Label className="sr-only" htmlFor="email">
                             邮箱
                         </Label>
-
                         <Input
                             {...register("email")}
                             id="email"
@@ -69,6 +88,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                         <Label className="sr-only" htmlFor="userName">用户名</Label>
                         <Input
                             {...register("userName")}
+                            value="zh_harry2024"
                             id="userName"
                             type="text"
                             placeholder="user name"
@@ -85,7 +105,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                                 Forgot your password?
                             </Link>
                         </div>
-                        <Input  {...register("password")} id="password" type="password"/>
+                        <Input value="abcABC123!"  {...register("password")} id="password" type="password"/>
                         <ErrorMessage
                             errors={errors}
                             name="password"
@@ -93,7 +113,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                     </div>
                     <div className="grid gap-1">
                         <Label htmlFor="confirmPassword">确认密码</Label>
-                        <Input {...register("confirmPassword")} id="confirmPassword" type="password"/>
+                        <Input value="abcABC123!" {...register("confirmPassword")} id="confirmPassword" type="password"/>
                         <ErrorMessage
                             errors={errors}
                             name="confirmPassword"
@@ -104,7 +124,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                         <Label className="w-32" htmlFor="captcha">验证码</Label>
                         <div className="flex flex-row items-left">
                             <Input {...register("captcha")} className="w-32" id="captcha" type="text"/>
-                            <img src="/captcha" alt="captcha" className="w-16 h-16"/>
+                            <img ref={captchaRef} src={CAPTCHA_URL} alt="captcha" className="w-16 h-8 cursor-pointer"/>
                         </div>
                         <ErrorMessage
                             errors={errors}
