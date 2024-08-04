@@ -88,7 +88,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                         <Label className="sr-only" htmlFor="userName">用户名</Label>
                         <Input
                             {...register("userName")}
-                            value="zh_harry2024"
+                            defaultValue="zh_harry2024"
                             id="userName"
                             type="text"
                             placeholder="user name"
@@ -105,7 +105,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                                 Forgot your password?
                             </Link>
                         </div>
-                        <Input value="abcABC123!"  {...register("password")} id="password" type="password"/>
+                        <Input defaultValue="abcABC123!"  {...register("password")} id="password" type="password"/>
                         <ErrorMessage
                             errors={errors}
                             name="password"
@@ -113,7 +113,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                     </div>
                     <div className="grid gap-1">
                         <Label htmlFor="confirmPassword">确认密码</Label>
-                        <Input value="abcABC123!" {...register("confirmPassword")} id="confirmPassword" type="password"/>
+                        <Input defaultValue="abcABC123!" {...register("confirmPassword")} id="confirmPassword" type="password"/>
                         <ErrorMessage
                             errors={errors}
                             name="confirmPassword"

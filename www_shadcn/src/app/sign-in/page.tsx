@@ -43,7 +43,6 @@ export default function Page() {
     });
 
     function onRmemberMeChange(value:any) {
-        debugger
         setValue("rememberMe", value);
     }
 
@@ -121,8 +120,8 @@ export default function Page() {
                                 <div className="flex flex-row-reverse gap-2">
                                     {/*<Input value={"true"} type="checkbox" {...register('rememberMe')} id="rememberMe" className="mr-2" />*/}
                                     {/*<input {...register('rememberMe')} type="checkbox"  name="rememberMe" value="on"/>*/}
-                                    {/*<Checkbox onCheckedChange={onRmemberMeChange}  id="rememberMe"/>*/}
-                                    <Checkbox {...register('rememberMe')}  id="rememberMe"/>
+                                    <Checkbox onCheckedChange={onRmemberMeChange}  id="rememberMe"/>
+                                    {/*<Checkbox {...register('rememberMe')}  id="rememberMe"/>*/}
 
                                     {/*<label*/}
                                     {/*    htmlFor="rememberMe"*/}
