@@ -3,12 +3,13 @@ import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import SparrowEditor from '@/components/editor'
 import { ModeToggle } from '@/components/mode-toggle'
+import {Drawer, DrawerContent, DrawerTrigger} from "@/components/ui/drawer";
+import {Button} from "@/components/ui/button";
 
 export default function page() {
     return (
         <>
             <Toaster position="top-center" reverseOrder={true} />
-            {/*<ArticleForm/>*/}
             <div className="container">
                 <form className="w-[100%]">
                     <div className="flex h-[60px] flex-row items-center justify-between gap-4 px-4">
@@ -26,8 +27,18 @@ export default function page() {
                                 'flex flex-row items-center justify-between gap-4'
                             }
                         >
-                            <button type="submit">发布</button>
-                            <ModeToggle />
+                            <Drawer direction={"right"}>
+                                <DrawerTrigger asChild>
+                                    <Button variant="outline">发布文章</Button>
+                                </DrawerTrigger>
+                                <DrawerContent draggable={false}
+                                    className="bg-white inset-[unset] flex flex-col h-full w-[400px] mt-14 fixed top-[1px] right-0">
+                                    <div>
+
+                                    </div>
+                                </DrawerContent>
+                            </Drawer>
+
                         </div>
                     </div>
                     <SparrowEditor />

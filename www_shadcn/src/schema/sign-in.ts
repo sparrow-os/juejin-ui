@@ -1,9 +1,9 @@
 import * as v from "valibot";
 
 export const SignInFormSchema = v.object({
-    email: v.pipe(
-        v.string("请输入邮箱地址"),
-        v.email("请输入正确的邮箱地址")
+    userName: v.pipe(
+        v.string("请输入用户名或邮箱"),
+        v.nonEmpty("请输入用户名或邮箱")
     ),
     password: v.pipe(
         v.string(),
@@ -18,21 +18,11 @@ export const SignInFormSchema = v.object({
     ),
     rememberMe: v.pipe(
         v.any(),
-        v.transform((input):any => {
-            return input === "on";
+        v.transform((input): any => {
+            return input === true;
         })
     )
 });
-
-// const LoginSchema = v.pipe(
-//     SignInFormSchema,
-//     v.transform((input) => {
-//         return {
-//             ...input,
-//             rememberMe:v.,
-//         };
-//     })
-// );
 
 export type FormData = v.InferOutput<typeof SignInFormSchema>; // { email: string; password: string }
 

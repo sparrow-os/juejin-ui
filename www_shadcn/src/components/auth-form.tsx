@@ -15,25 +15,17 @@ import signUp from "@/api/signup";
 import toast, {Toaster} from "react-hot-toast";
 import CAPTCHA_URL from "@/utils/constant";
 import {useEffect, useRef} from "react";
+import useCaptcha from "@/hook/Captcha";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function AuthForm({className, ...props}: UserAuthFormProps) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const captchaRef = useRef<HTMLImageElement>(null);
-    useEffect(() => {
-        const captcha = captchaRef.current;
-        if (captcha) {
-            captcha.addEventListener("click", () => {
-                captcha.src = `${CAPTCHA_URL}?${Math.random()}`;
-            });
-        }
-    }, []);
+    const captchaRef =useCaptcha();
     const {
         register,
         handleSubmit,
-        control,
         formState: {errors},
     } = useForm<FormData>({
         mode: "onChange",
@@ -74,10 +66,9 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                             {...register("email")}
                             id="email"
                             type="email"
-                            placeholder="Email"
                             autoCapitalize="none"
                             autoComplete="email"
-                            autoCorrect="off"
+                            autoCorrect="off" placeholder="请输入邮箱"
                         />
                         <ErrorMessage
                             errors={errors}
@@ -88,10 +79,9 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                         <Label className="sr-only" htmlFor="userName">用户名</Label>
                         <Input
                             {...register("userName")}
-                            defaultValue="zh_harry2024"
                             id="userName"
                             type="text"
-                            placeholder="user name"
+                            placeholder="请输入用户名"
                         />
                         <ErrorMessage
                             errors={errors}
@@ -105,7 +95,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                                 Forgot your password?
                             </Link>
                         </div>
-                        <Input defaultValue="abcABC123!"  {...register("password")} id="password" type="password"/>
+                        <Input {...register("password")} id="password" type="password"/>
                         <ErrorMessage
                             errors={errors}
                             name="password"
@@ -113,7 +103,7 @@ export function AuthForm({className, ...props}: UserAuthFormProps) {
                     </div>
                     <div className="grid gap-1">
                         <Label htmlFor="confirmPassword">确认密码</Label>
-                        <Input defaultValue="abcABC123!" {...register("confirmPassword")} id="confirmPassword" type="password"/>
+                        <Input  {...register("confirmPassword")} id="confirmPassword" type="password"/>
                         <ErrorMessage
                             errors={errors}
                             name="confirmPassword"
