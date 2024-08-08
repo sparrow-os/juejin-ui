@@ -8,25 +8,17 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {FormData, SignInFormSchema} from "@/schema/sign-in";
 import {valibotResolver} from "@hookform/resolvers/valibot";
 import * as React from "react";
-import {useEffect, useRef} from "react";
 import signIn from "@/api/signin";
 import toast, {Toaster} from "react-hot-toast";
 import {Icons} from "@/components/ui/icons";
 import CAPTCHA_URL from "@/utils/constant";
 import {ErrorMessage} from "@hookform/error-message";
 import {Checkbox} from "@/components/ui/checkbox";
+import useCaptcha from "@/hook/Captcha";
 
 export default function Page() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-    const captchaRef = useRef<HTMLImageElement>(null);
-    useEffect(() => {
-        const captcha = captchaRef.current;
-        if (captcha) {
-            captcha.addEventListener("click", () => {
-                captcha.src = `${CAPTCHA_URL}?${Math.random()}`;
-            });
-        }
-    }, []);
+const captchaRef = useCaptcha();
     const {
         register,
         setValue,
@@ -42,13 +34,14 @@ export default function Page() {
         ), // Useful to check TypeScript regressions
     });
 
-    function onRmemberMeChange(value:any) {
+    function onRememberMeChange(value:any) {
         setValue("rememberMe", value);
     }
 
     const onSubmit: SubmitHandler<FormData> = (data: FormData, event: React.BaseSyntheticEvent | undefined) => {
         setIsLoading(true);
         signIn(data).then(() => {
+            debugger;
             setIsLoading(false);
             toast.success('恭喜！登录成功，欢迎回来！志哥欢迎您！！！')
             setTimeout(() => {
@@ -72,17 +65,17 @@ export default function Page() {
                         <div className="grid gap-2 text-center">
                             <h1 className="text-3xl font-bold">Login</h1>
                             <p className="text-balance text-muted-foreground">
-                                输入邮箱和密码
+                                输入用户名/邮箱和密码
                             </p>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email</Label>
-                                    <Input  defaultValue="zh_harry@163.com"  {...register('email')}
-                                           id="email"
+                                    <Label htmlFor="userName">用户名或邮箱</Label>
+                                    <Input  {...register('userName')}
+                                           id="userName"
                                            type="text"
-                                           placeholder="****@163.com"
+                                           placeholder="请输入用户名或邮箱"
                                     />
                                     <ErrorMessage
                                         errors={errors}
@@ -99,7 +92,7 @@ export default function Page() {
                                             忘记密码?
                                         </Link>
                                     </div>
-                                    <Input defaultValue="abcABC123!" {...register('password')} id="password" type="password"/>
+                                    <Input {...register('password')} id="password" type="password"/>
                                     <ErrorMessage
                                         errors={errors}
                                         name="password"
@@ -108,8 +101,8 @@ export default function Page() {
 
                                 <div className="flex-col items-left ">
                                     <Label className="w-32" htmlFor="captcha">验证码</Label>
-                                    <div className="flex flex-row items-left">
-                                        <Input placeholder="1111"  {...register("captcha")} className="w-32" id="captcha" type="text"/>
+                                    <div className="flex flex-row items-left cursor-pointer">
+                                        <Input  {...register("captcha")} className="w-32" id="captcha" type="text"/>
                                         <img ref={captchaRef} src={CAPTCHA_URL} alt="captcha" className="w-16 h-8 cursor-pointer"/>
                                     </div>
                                     <ErrorMessage
@@ -118,27 +111,24 @@ export default function Page() {
                                         render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
                                 <div className="flex flex-row-reverse gap-2">
-                                    {/*<Input value={"true"} type="checkbox" {...register('rememberMe')} id="rememberMe" className="mr-2" />*/}
-                                    {/*<input {...register('rememberMe')} type="checkbox"  name="rememberMe" value="on"/>*/}
-                                    <Checkbox onCheckedChange={onRmemberMeChange}  id="rememberMe"/>
-                                    {/*<Checkbox {...register('rememberMe')}  id="rememberMe"/>*/}
 
-                                    {/*<label*/}
-                                    {/*    htmlFor="rememberMe"*/}
-                                    {/*    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"*/}
-                                    {/*>*/}
-                                    {/*    Remember me*/}
-                                    {/*</label>*/}
+                                    <Checkbox onCheckedChange={onRememberMeChange}  id="rememberMe"/>
+                                    <label
+                                        htmlFor="rememberMe"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Remember me
+                                    </label>
                                     <ErrorMessage
                                         errors={errors}
                                         name="rememberMe"
                                         render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
-                                <Button type="submit" disabled={isLoading}>
+                                <Button className="cursor-pointer" type="submit" disabled={isLoading}>
                                     {isLoading && (
                                         <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
                                     )}
-                                    Sign In with Email
+                                   登录
                                 </Button>
                                 <Button variant="outline" className="w-full">
                                     Login with wechat
