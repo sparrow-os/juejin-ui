@@ -54,7 +54,7 @@ export default function Page() {
             setTimeout(() => {
                 window.location.href = "/";
             }, 2000);
-        }).catch((error) => {
+        }).catch((error: any) => {
             toast.error(error)
             setIsLoading(false);
         });
@@ -87,7 +87,7 @@ export default function Page() {
                                     <ErrorMessage
                                         errors={errors}
                                         name="email"
-                                        render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
+                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
                                 <div className="grid gap-2">
                                     <div className="flex items-center">
