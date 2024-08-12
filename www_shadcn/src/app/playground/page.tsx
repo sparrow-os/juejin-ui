@@ -2,9 +2,7 @@
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import SparrowEditor from '@/components/editor'
-import { ModeToggle } from '@/components/mode-toggle'
-import {Drawer, DrawerContent, DrawerTrigger} from "@/components/ui/drawer";
-import {Button} from "@/components/ui/button";
+import SparrowDrawer from "@/components/drawer";
 
 export default function page() {
     return (
@@ -22,23 +20,10 @@ export default function page() {
                             className="text-sm text-red-700"
                             role="alert"
                         ></span>
-                        <div
-                            className={
+                        <div className={
                                 'flex flex-row items-center justify-between gap-4'
-                            }
-                        >
-                            <Drawer direction={"right"}>
-                                <DrawerTrigger asChild>
-                                    <Button variant="outline">发布文章</Button>
-                                </DrawerTrigger>
-                                <DrawerContent draggable={false}
-                                    className="bg-white inset-[unset] flex flex-col h-full w-[400px] mt-14 fixed top-[1px] right-0">
-                                    <div>
-
-                                    </div>
-                                </DrawerContent>
-                            </Drawer>
-
+                            }>
+                            <SparrowDrawer />
                         </div>
                     </div>
                     <SparrowEditor />

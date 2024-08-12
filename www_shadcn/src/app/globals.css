@@ -71,7 +71,11 @@
 
 @layer utilities {
     .bytemd {
-        height: calc(100vh - 60px) !important;
+        height: calc(100vh - 70px) !important;
+    }
+    .bytemd .bytemd-body {
+        height: calc(100% - 70px) !important;
+        overflow: auto;
     }
     code span{
         @apply text-pretty
