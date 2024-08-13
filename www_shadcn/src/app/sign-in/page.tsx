@@ -96,7 +96,7 @@ const captchaRef = useCaptcha();
                                     <ErrorMessage
                                         errors={errors}
                                         name="password"
-                                        render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
+                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
 
                                 <div className="flex-col items-left ">
@@ -108,11 +108,10 @@ const captchaRef = useCaptcha();
                                     <ErrorMessage
                                         errors={errors}
                                         name="captcha"
-                                        render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
+                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
                                 <div className="flex flex-row-reverse gap-2">
-
-                                    <Checkbox onCheckedChange={onRememberMeChange}  id="rememberMe"/>
+                                    <Checkbox defaultChecked={false} onCheckedChange={onRememberMeChange}  id="rememberMe"/>
                                     <label
                                         htmlFor="rememberMe"
                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -122,7 +121,7 @@ const captchaRef = useCaptcha();
                                     <ErrorMessage
                                         errors={errors}
                                         name="rememberMe"
-                                        render={({message}) => <p className="text-red-700 text-sm">{message}</p>}/>
+                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
                                 </div>
                                 <Button className="cursor-pointer" type="submit" disabled={isLoading}>
                                     {isLoading && (
