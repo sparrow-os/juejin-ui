@@ -66,7 +66,7 @@ const SparrowEditor = forwardRef((props, ref) => {
         // Add more plugins here
     ]
     return (
-        <div className="editor-content-wrapper h-fullm md:prose-lg lg:prose-xl">
+        <div className="editor-content-wrapper h-full md:prose-lg lg:prose-xl">
             <Editor
                 value={contentValue}
                 plugins={plugins}
