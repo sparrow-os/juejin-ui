@@ -43,12 +43,7 @@ export default function SparrowDrawer() {
 
                         <div className="mb-4">
 
-
-
 <ImageUploader/>
-
-
-
                     </div>
                     <div className="mb-4">
                         <label className="block text-sm font-bold mb-2">文章摘要</label>

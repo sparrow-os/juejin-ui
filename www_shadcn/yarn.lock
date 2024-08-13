@@ -464,7 +464,7 @@
 
 "@npmcli/run-script@^1.8.2", "@npmcli/run-script@^1.8.3", "@npmcli/run-script@^1.8.4", "@npmcli/run-script@^1.8.6":
   version "1.8.6"
-  resolved "https://registry.npmjs.org/@npmcli/run-script/-/run-script-1.8.6.tgz#18314802a6660b0d4baa4c3afe7f1ad39d8c28b7"
+  resolved "https://registry.npmjs.org/@npmcli/run-script/-/run-script-1.8.6.tgz"
   integrity sha512-e42bVZnC6VluBZBAFEr3YrdqSspG3bgilyg4nSLBJ7TRGNCzxHa92XAHxQBLYg0BmgwO4b2mf3h/l5EkEWRn3g==
   dependencies:
     "@npmcli/node-gyp" "^1.0.2"
@@ -966,7 +966,7 @@
   resolved "https://registry.npmmirror.com/@types/katex/-/katex-0.16.7.tgz"
   integrity sha512-HMwFiRujE5PjrgwHQ25+bsLJgowjGjm5Z8FVSf0N6PwgJrwxH0QxzHYDcKsTfV3wva0vzrpqMTJS2jXPr5BMEQ==
 
-"@types/lodash-es@^4.17.7":
+"@types/lodash-es@^4.17.12", "@types/lodash-es@^4.17.7":
   version "4.17.12"
   resolved "https://registry.npmmirror.com/@types/lodash-es/-/lodash-es-4.17.12.tgz"
   integrity sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==
@@ -1011,6 +1011,13 @@
   version "18.3.0"
   resolved "https://registry.npmmirror.com/@types/react-dom/-/react-dom-18.3.0.tgz"
   integrity sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-tag-input@^6.6.6":
+  version "6.6.6"
+  resolved "https://registry.npmjs.org/@types/react-tag-input/-/react-tag-input-6.6.6.tgz"
+  integrity sha512-GtVh5tYQ4lsl7dGddVaIh3yRieSHZzcULVTCUyltRfrpK9NBp+vEpYUoQaY8oQCZxOOKkQaRzlJvgZQuf+YwUQ==
   dependencies:
     "@types/react" "*"
 
@@ -1084,6 +1091,11 @@
   version "1.2.0"
   resolved "https://registry.npmmirror.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
+
+"@yaireo/tagify@^4.27.0":
+  version "4.27.0"
+  resolved "https://registry.npmjs.org/@yaireo/tagify/-/tagify-4.27.0.tgz#675fcb826d9c9fbfa352e39276d003677f52e138"
+  integrity sha512-rMWqu5xMxVcDSElW7acwcR7eEQsaTvWzURJuUniM2Eopg/ecitCZzGC344SitnjmYI456cf3NxihbiODhH+zWQ==
 
 abbrev@1, abbrev@~1.1.1:
   version "1.1.1"
@@ -1383,6 +1395,11 @@ asynckit@^0.4.0:
   resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
+attr-accept@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-2.2.2.tgz"
+  integrity sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==
+
 autoprefixer@^10.4.19:
   version "10.4.19"
   resolved "https://registry.npmmirror.com/autoprefixer/-/autoprefixer-10.4.19.tgz"
@@ -1670,6 +1687,11 @@ class-variance-authority@^0.7.0:
   integrity sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==
   dependencies:
     clsx "2.0.0"
+
+classnames@~2.3.1:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.3.tgz#897b59920fa3e336571c164366efad73e9d6418b"
+  integrity sha512-1inzZmicIFcmUya7PGtUQeXtcF7zZpPnxtQoYOrz0uiOBGlLFa4ik4361seYL2JCcRDIyfdFHiwQolESFlw+Og==
 
 clean-css@~5.3.2:
   version "5.3.3"
@@ -2845,6 +2867,13 @@ file-entry-cache@^6.0.1:
   dependencies:
     flat-cache "^3.0.4"
 
+file-selector@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/file-selector/-/file-selector-0.6.0.tgz"
+  integrity sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==
+  dependencies:
+    tslib "^2.4.0"
+
 fill-range@^7.1.1:
   version "7.1.1"
   resolved "https://registry.npmmirror.com/fill-range/-/fill-range-7.1.1.tgz"
@@ -3316,7 +3345,7 @@ html-void-elements@^2.0.0:
 
 html5-file-selector@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.npmjs.org/html5-file-selector/-/html5-file-selector-2.1.0.tgz#794e4a59766b1a021bd704372add4a04f2802582"
+  resolved "https://registry.npmjs.org/html5-file-selector/-/html5-file-selector-2.1.0.tgz"
   integrity sha512-pzf82T0d58BimSSNNXyj/uak7qC9N4wUwWNbamOHnYpPUN2/KJ47bXrbuXeTCbeKmNHyKegqeWt7Bl1excL5PA==
 
 http-cache-semantics@^4.1.0:
@@ -5577,6 +5606,15 @@ react-dropzone-uploader@^2.11.0:
   dependencies:
     "@babel/runtime" "^7.1.2"
 
+react-dropzone@^14.2.3:
+  version "14.2.3"
+  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-14.2.3.tgz"
+  integrity sha512-O3om8I+PkFKbxCukfIR3QAGftYXDZfOE2N1mr/7qebQJHs7U+/RSL/9xomJNpRg9kM5h9soQSdf0Gc7OHF5Fug==
+  dependencies:
+    attr-accept "^2.2.2"
+    file-selector "^0.6.0"
+    prop-types "^15.8.1"
+
 react-hook-form@^7.52.0:
   version "7.52.2"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.52.2.tgz"
@@ -5621,6 +5659,15 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-tag-input@^6.10.3:
+  version "6.10.3"
+  resolved "https://registry.npmjs.org/react-tag-input/-/react-tag-input-6.10.3.tgz#2b0378c32d34cd889eb0f3d8bc38fc0595b910f4"
+  integrity sha512-IVneBnT0/7N8FktHsFUA2UVDvcwLSJoWDTdEm/Ei/r5O6iBABaVw1RMh6SlG+P7oummvzSY6EBjGCXr/Ntq8rQ==
+  dependencies:
+    "@types/lodash-es" "^4.17.12"
+    classnames "~2.3.1"
+    lodash-es "^4.17.21"
 
 react@^18:
   version "18.3.1"
