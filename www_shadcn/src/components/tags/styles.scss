@@ -1,35 +1,21 @@
 .ReactTags__tags {
-  position: relative;
+  @apply
+    relative;
 }
 
 .ReactTags__clearAll {
-  cursor: pointer;
-  padding: 10px;
-  margin: 10px;
-  background: #f88d8d;
-  color: #fff;
-  border: none;
+  @apply
+    cursor-pointer px-4 mx-4;
 }
 
 .ReactTags__tagInput {
-  border-radius: 2px;
-  display: inline-block;
+  @apply border rounded-md inline-block w-[100%] ;
 
   input.ReactTags__tagInputField {
-    height: 32px;
-    margin: 0;
-    padding: 5px;
-    font-size: 14px;
-    border: 1px solid #eee;
-    min-width: 180px;
+    @apply rounded-sm m-0 px-4 border  border-background h-[34px] w-[100%] text-primary;
 
     &:focus {
-      height: 32px;
-      margin: 0;
-      padding: 5px;
-      font-size: 14px;
-      border: 1px solid #eee;
-      min-width: 180px;
+      @apply rounded-sm m-0 px-4 border border-white h-[34px] w-[100%];
     }
   }
 }
@@ -43,54 +29,35 @@
 }
 
 .ReactTags__selected {
-  display: flex;
-  justify-content: center;
+  @apply flex flex-row items-start flex-wrap;
 
   span.ReactTags__tag {
-    border: 1px solid #ddd;
-    background: #63bcfd;
-    color: #fff;
-    font-size: 14px;
-    padding: 5px;
-    margin: 0 5px;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
+    @apply border rounded-sm p-1 m-1 flex flex-row items-center justify-center;
   }
 
   .ReactTags__remove {
-    color: #aaa;
-    cursor: pointer;
-    display: flex;
+    @apply cursor-pointer text-red-500
   }
 }
 
 .ReactTags__suggestions {
-  position: absolute;
+  @apply absolute z-50 bg-background border border-gray-300 rounded-md shadow-lg w-[100%];
 
   ul {
-    list-style-type: none;
+    @apply w-[100%] p-2 list-none z-50;
     box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
-    background: white;
-    width: 200px;
-    padding: 5px 0;
   }
 
   li {
-    padding: 5px 10px;
-    margin: 0;
-    text-align: left;
-
+    @apply p-2 text-left w-[100%];
     mark {
       text-decoration: underline;
       background: none;
+      color: #fff;
     }
 
     &.ReactTags__activeSuggestion {
-      background: #4dabf7;
-      color: #fff;
-      cursor: pointer;
-
+      @apply bg-secondary text-primary cursor-pointer;
       span mark {
         color: #fff;
       }
@@ -102,8 +69,10 @@
   border: none;
   cursor: pointer;
   background: none;
-  color: #fff;
   padding: 5px;
+  svg {
+    fill: red !important;
+  }
 }
 
 .ReactTags__error {
@@ -113,8 +82,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   svg {
     padding: 0 5px;
+    color:red;
   }
 }

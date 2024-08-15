@@ -42,5 +42,5 @@ export const INPUT_FIELD_POSITIONS = {
 };
 
 export const ERRORS = {
-  TAG_LIMIT: 'Tag limit reached!',
+  TAG_LIMIT: '标签数量不能超最大限制!',
 };
