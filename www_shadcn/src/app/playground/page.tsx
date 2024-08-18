@@ -3,11 +3,13 @@ import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import SparrowEditor from '@/components/editor'
 import SparrowDrawer from "@/components/drawer";
+import CategoryTree from "@/components/select-tree/category";
 
 export default function page() {
     return (
         <>
-            <Toaster position="top-center" reverseOrder={true} />
+            {/*<Toaster position="top-center" reverseOrder={true} />*/}
+
             <div className="container">
                 <form className="w-[100%]">
                     <div className="flex h-[60px] flex-row items-center justify-between gap-4 px-4">
