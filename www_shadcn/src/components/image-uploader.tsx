@@ -20,7 +20,7 @@ const ImageUploader = React.forwardRef<HTMLLabelElement, InputProps>(
                 <label id={"sparrow-cover-label"} {...rootProps} ref={ref}
                        className={"bg-[url('/cover.svg')] bg-center flex items-center justify-center aspect-video  w-240 border border-stone-700  rounded-xl cursor-pointer relative"}>
                     <div
-                        className={" w-16 h-16 rounded-xl flex items-center justify-center z-20 text-white bg-stone-700 cursor-pointer border border-stone-700"}>
+                        className={" w-16 h-16 rounded-xl flex items-center justify-center z-10 text-white bg-stone-700 cursor-pointer border border-stone-700"}>
                         <Upload className="h-4 w-4 z-10 text-muted-foreground"/>
                     </div>
                 </label>

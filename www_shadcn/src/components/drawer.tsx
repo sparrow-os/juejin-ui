@@ -4,6 +4,7 @@ import React from "react";
 import ImageUploader from "@/components/image-uploader";
 import {VisuallyHidden} from "@radix-ui/react-visually-hidden";
 import Tags from "@/components/tags/tags";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
 
 export default function SparrowDrawer() {
     return (
@@ -22,6 +23,7 @@ export default function SparrowDrawer() {
 
                     <div className="mb-4">
                         <label className="block text-sm font-bold mb-2">文章分类</label>
+                        {/*https://github.com/jakezatecky/react-checkbox-tree*/}
                         <select className="w-full border-2 rounded-md p-2">
                             <option value="1">前端</option>
                             <option value="2">后端</option>
@@ -37,11 +39,18 @@ export default function SparrowDrawer() {
 
                     <div className="mb-4">
                         <label className="block text-sm font-bold mb-2">专栏</label>
-                        <select className="w-full border-2 rounded-md p-2">
-                            <option value="1">前端</option>
-                            <option value="2">后端</option>
-                            <option value="3">数据库</option>
-                        </select>
+                        <Select>
+
+                            <SelectTrigger>
+                                <SelectValue placeholder="请选择专栏"/>
+                            </SelectTrigger>
+
+                            <SelectContent>
+                                <SelectItem value="m@example.com">JAVA</SelectItem>
+                                <SelectItem value="m@google.com">.NET</SelectItem>
+                                <SelectItem value="m@support.com">PHP</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     <div className="mb-4">

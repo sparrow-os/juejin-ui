@@ -15,9 +15,6 @@ const suggestions = COUNTRIES.map((country) => {
 
 const Tags = () => {
     const [tags, setTags] = React.useState<Array<Tag>>([
-        {id: "India", text: "India", className: ""},
-        {id: "Vietnam", text: "Vietnam", className: ""},
-        {id: "Turkey", text: "Turkey", className: ""},
     ]);
 
     const handleDelete = (index: number) => {
@@ -53,9 +50,8 @@ const Tags = () => {
     const onClearAll = () => {
         setTags([]);
     };
-
     return (
-            <div>
+
                 <ReactTags
                     labelField={"text"}
                     tags={tags}
@@ -67,12 +63,10 @@ const Tags = () => {
                     handleTagClick={handleTagClick}
                     onTagUpdate={onTagUpdate}
                     editable
-                    clearAll
-                    onClearAll={onClearAll}
                     maxTags={7}
+
                     allowAdditionFromPaste
                 />
-            </div>
     );
 };
 export default Tags;
