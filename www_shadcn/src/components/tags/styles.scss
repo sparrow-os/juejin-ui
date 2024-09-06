@@ -12,10 +12,10 @@
   @apply border rounded-md inline-block w-[100%] ;
 
   input.ReactTags__tagInputField {
-    @apply rounded-sm m-0 px-4 border  border-background h-[34px] w-[100%] text-primary;
+    @apply rounded-sm m-0 px-4 border-solid  border-gray-300 h-[34px] w-[100%] text-primary;
 
     &:focus {
-      @apply rounded-sm m-0 px-4 border border-white h-[34px] w-[100%];
+      @apply rounded-sm m-0 px-4 border border-stone-950 h-[34px] w-[100%];
     }
   }
 }

@@ -18,7 +18,7 @@ import useCaptcha from "@/hook/Captcha";
 
 export default function Page() {
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
-const captchaRef = useCaptcha();
+    const captchaRef = useCaptcha();
     const {
         register,
         setValue,
@@ -34,7 +34,7 @@ const captchaRef = useCaptcha();
         ), // Useful to check TypeScript regressions
     });
 
-    function onRememberMeChange(value:any) {
+    function onRememberMeChange(value: any) {
         setValue("rememberMe", value);
     }
 
@@ -68,72 +68,78 @@ const captchaRef = useCaptcha();
                                 输入用户名/邮箱和密码
                             </p>
                         </div>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className="grid gap-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="userName">用户名或邮箱</Label>
-                                    <Input  {...register('userName')}
-                                           id="userName"
-                                           type="text"
-                                           placeholder="请输入用户名或邮箱"
-                                    />
-                                    <ErrorMessage
-                                        errors={errors}
-                                        name="email"
-                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
-                                </div>
-                                <div className="grid gap-2">
-                                    <div className="flex items-center">
-                                        <Label htmlFor="password">Password</Label>
-                                        <Link
-                                            href="/forgot-password"
-                                            className="ml-auto inline-block text-sm underline"
-                                        >
-                                            忘记密码?
-                                        </Link>
-                                    </div>
-                                    <Input {...register('password')} id="password" type="password"/>
-                                    <ErrorMessage
-                                        errors={errors}
-                                        name="password"
-                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
-                                </div>
 
-                                <div className="flex-col items-left ">
-                                    <Label className="w-32" htmlFor="captcha">验证码</Label>
-                                    <div className="flex flex-row items-left cursor-pointer">
-                                        <Input  {...register("captcha")} className="w-32" id="captcha" type="text"/>
-                                        <img ref={captchaRef} src={CAPTCHA_URL} alt="captcha" className="w-16 h-8 cursor-pointer"/>
-                                    </div>
-                                    <ErrorMessage
-                                        errors={errors}
-                                        name="captcha"
-                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
-                                </div>
-                                <div className="flex flex-row-reverse gap-2">
-                                    <Checkbox defaultChecked={false} onCheckedChange={onRememberMeChange}  id="rememberMe"/>
-                                    <label
-                                        htmlFor="rememberMe"
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        Remember me
-                                    </label>
-                                    <ErrorMessage
-                                        errors={errors}
-                                        name="rememberMe"
-                                        render={({message}:{message:string}) => <p className="text-red-700 text-sm">{message}</p>}/>
-                                </div>
-                                <Button className="cursor-pointer" type="submit" disabled={isLoading}>
-                                    {isLoading && (
-                                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
-                                    )}
-                                   登录
-                                </Button>
-                                <Button variant="outline" className="w-full">
-                                    Login with wechat
-                                </Button>
+                        <div className="grid gap-4">
+                            <div className="grid gap-2">
+                                <Label htmlFor="userName">用户名或邮箱</Label>
+                                <Input  {...register('userName')}
+                                        id="userName"
+                                        type="text"
+                                        placeholder="请输入用户名或邮箱"
+                                />
+                                <ErrorMessage
+                                    errors={errors}
+                                    name="email"
+                                    render={({message}: { message: string }) => <p
+                                        className="text-red-700 text-sm">{message}</p>}/>
                             </div>
-                        </form>
+                            <div className="grid gap-2">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password">Password</Label>
+                                    <Link
+                                        href="/forgot-password"
+                                        className="ml-auto inline-block text-sm underline"
+                                    >
+                                        忘记密码?
+                                    </Link>
+                                </div>
+                                <Input {...register('password')} id="password" type="password"/>
+                                <ErrorMessage
+                                    errors={errors}
+                                    name="password"
+                                    render={({message}: { message: string }) => <p
+                                        className="text-red-700 text-sm">{message}</p>}/>
+                            </div>
+
+                            <div className="flex-col items-left ">
+                                <Label className="w-32" htmlFor="captcha">验证码</Label>
+                                <div className="flex flex-row items-left cursor-pointer">
+                                    <Input  {...register("captcha")} className="w-32" id="captcha" type="text"/>
+                                    <img ref={captchaRef} src={CAPTCHA_URL} alt="captcha"
+                                         className="w-16 h-8 cursor-pointer"/>
+                                </div>
+                                <ErrorMessage
+                                    errors={errors}
+                                    name="captcha"
+                                    render={({message}: { message: string }) => <p
+                                        className="text-red-700 text-sm">{message}</p>}/>
+                            </div>
+                            <div className="flex flex-row-reverse gap-2">
+                                <Checkbox defaultChecked={false} onCheckedChange={onRememberMeChange} id="rememberMe"/>
+                                <label
+                                    htmlFor="rememberMe"
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                    Remember me
+                                </label>
+                                <ErrorMessage
+                                    errors={errors}
+                                    name="rememberMe"
+                                    render={({message}: { message: string }) => <p
+                                        className="text-red-700 text-sm">{message}</p>}/>
+                            </div>
+                            <Button onClick={handleSubmit(onSubmit)} className="cursor-pointer" type="submit"
+                                    disabled={isLoading}>
+                                {isLoading && (
+                                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
+                                )}
+                                登录
+                            </Button>
+                            <Button variant="outline" className="w-full">
+                                Login with wechat
+                            </Button>
+                        </div>
+
                         <div className="mt-4 text-center text-sm">
                             还没有帐号?{' '}
                             <Link href="/sign-up" className="underline">
