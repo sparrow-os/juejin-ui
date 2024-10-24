@@ -20,23 +20,27 @@ const Tags = (setValue:UseFormSetValue<FormData>) => {
     const [tags, setTags] = React.useState<Array<Tag>>([
     ]);
 
+    const tagString=(tags:Array<Tag>)=>{
+        return tags.map(tag => tag.text).join(",");
+    };
+
     const handleDelete = (index: number) => {
         const newTags=tags.filter((_, i) => i !== index);
         setTags(newTags);
-        setValue("tags", newTags.join(","));
+        setValue("tags",tagString(newTags));
     };
 
     const onTagUpdate = (index: number, newTag: Tag) => {
         const updatedTags = [...tags];
         updatedTags.splice(index, 1, newTag);
         setTags(updatedTags);
-        setValue("tags", updatedTags.join(","));
+        setValue("tags", tagString(updatedTags));
     };
 
     const handleAddition = (tag: Tag) => {
         const newTags = [...tags, tag];
         setTags(newTags);
-        setValue("tags", newTags.join(","));
+        setValue("tags",tagString(newTags));
     };
 
     const handleDrag = (tag: Tag, currPos: number, newPos: number) => {
@@ -45,7 +49,7 @@ const Tags = (setValue:UseFormSetValue<FormData>) => {
         newTags.splice(newPos, 0, tag);
         // re-render
         setTags(newTags);
-        setValue("tags", newTags.join(","));
+        setValue("tags", tagString(newTags));
     };
 
     const handleTagClick = (index: number) => {
