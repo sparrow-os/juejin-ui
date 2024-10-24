@@ -40,6 +40,7 @@ const Tags = (setValue:UseFormSetValue<FormData>) => {
     const handleAddition = (tag: Tag) => {
         const newTags = [...tags, tag];
         setTags(newTags);
+        console.log(setValue);
         setValue("tags",tagString(newTags));
     };
 
